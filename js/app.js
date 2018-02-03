@@ -1,3 +1,14 @@
+//appends an "active" class to .info and .info-content when the "Open" button is clicked
+$("#infoButton").on("click", function(){
+  $(".info-overlay, .info-content").addClass("active");
+});
+
+//removes the "active" class to .info and .info-content when the "Close" button is clicked 
+$("#info-close, .info-overlay").on("click", function(){
+  $(".info-overlay, .info-content").removeClass("active");
+});
+
+
 
 $(document).ready(function() {
 	//make your canvas available in JS 
