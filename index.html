@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Froggo</title>
+	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|VT323" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/enhanced.css" media="screen and (min-width: 40.5em)" />
+</head>
+<body>
+	<h1>FROGGO</h1>
+	<main> 
+		<span id='hiScore'>HiScore: 600</span> <span id='score'>Score: 0</span>
+		<div class="canvasContainer">
+			<canvas></canvas>
+		</div>
+		<button type='button' id='startButton'>Start Game</button>
+		<form id='howManyPlayers'>
+			<label><input class="option-input radio" type='radio' name='playerNum' id='p1' checked>1P</label>
+			<label><input class="option-input radio" type='radio' name='playerNum' id='p2'>2P</label>
+		</form>
+	</main>
+
+	<footer> 
+		<a href="http://www.github.com/egarrett94"><img class='icon' src="./img/githublogo.png"></a>
+		<a href="http://www.linkedin.com/in/emilymariegarrett94"><img class='icon' src="./img/linkedinicon.png"></a>
+		<a href="mailto:e.marie.garrett@gmail.com"><img class='icon' src="./img/emailicon.png"></a>
+		<span id='copyright'>©Emily Garrett 2018</span>
+	</footer>
+
+	<script
+	  src="http://code.jquery.com/jquery-3.3.1.min.js"
+	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous"></script>
+	<script type="text/javascript" src="./js/app.js"></script>
+</body>
+</html>
