@@ -45,5 +45,6 @@ I wanted to start this with mobile design as my first priority, but having spent
 Once I got the overall layout and styling done for all the page components, I dove into the HTML5 Canvas. It was a real challenge at first to understand how to place things, and how to make the board animate. I tried to think of how I would do this with a physical version of this, like a flipbook, and understood the whole process a lot better. 
 
 I made arrays of objects that would determine the placements of static components of the game, like the lilypads and the gators. I use those to iterate through the arrays and .drawImage() each one onto the board upon startup! 
+![screen shot 2018-02-03 at 9 26 26 pm](https://user-images.githubusercontent.com/25888207/35774590-f0a3861a-0928-11e8-9cda-3cf1531aa1c0.png)
 
 The next challenge comes with determining collision mechanics and making the logs float across the screens at different speeds...
