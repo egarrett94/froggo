@@ -36,6 +36,35 @@ var level = 1;
 //event listeners to start/reset game
 var startButton = $('#startButton');
 
+//all still tiles to populate per level
+var levelOneStaticSafe = [
+	{ type: 'lilypad1', imgName: 'lilypad', x: 40, y: 345, width: 25, height: 25 },
+	{ type: 'lilypad2', imgName: 'lilypad', x: 90, y: 345, width: 25, height: 25 },
+	{ type: 'lilypad3', imgName: 'lilypad', x: 135, y: 345, width: 25, height: 25 },
+	{ type: 'lilypad4', imgName: 'lilypad', x: 65, y: 295, width: 25, height: 25 },
+	{ type: 'lilypad5', imgName: 'lilypad', x: 110, y: 295, width: 25, height: 25 },
+	{ type: 'lilypad6', imgName: 'lilypad', x: 90, y: 220, width: 25, height: 25 },
+	{ type: 'lilypad7', imgName: 'lilypad', x: 65, y: 145, width: 25, height: 25 },
+	{ type: 'lilypad8', imgName: 'lilypad', x: 110, y: 145, width: 25, height: 25 },
+	{ type: 'lilypad9', imgName: 'lilypad', x: 90, y: 30, width: 25, height: 25 }
+];
+
+var levelOneStaticBad = [
+	{ type: 'gator1', imgName: 'gator1', x: 55, y: 345, width: 25, height: 25 },
+	{ type: 'gator2', imgName: 'gator1', x: 55, y: 345, width: 25, height: 25 },
+	{ type: 'gator3', imgName: 'gator1', x: 55, y: 345, width: 25, height: 25 },
+	{ type: 'gator4', imgName: 'gator1', x: 55, y: 345, width: 25, height: 25 }
+];
+
+var staticSafe = function(staticSafe) {
+  for (var i = 0; i < staticSafe.length; i++) {
+    var safeTile = document.getElementById(staticSafe[i].imgName);
+    ctx.drawImage(safeTile, staticSafe[i].x, staticSafe[i].y, staticSafe[i].width, staticSafe[i].height);
+  }
+};
+
+
+
 var beginGame = function() {
 	win = false;
 	window.addEventListener('keydown', hop);
@@ -55,7 +84,6 @@ var gameOver = function() {
 var froggoDisplay = function () {
 	var froggo = document.getElementById('froggo');
 	ctx.drawImage(froggo, x, y, 35, 35);
-	console.log('frog drawn');
 }
 
 var hop = function(e) {
@@ -81,6 +109,7 @@ var hop = function(e) {
 var gameLoop = function() {
 	//clear between interval pops
 	ctx.clearRect(0, 0, 200, 400);
+	staticSafe(levelOneStaticSafe);
 	froggoDisplay();
 }
 
