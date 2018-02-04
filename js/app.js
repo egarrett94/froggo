@@ -32,15 +32,23 @@ var x = 85;
 var y = 370;
 
 var level = 1;
+var lives = 3;
 
-//event listeners to start/reset game
+//event listeners to start game
 var startButton = $('#startButton');
 
-//all still tiles to populate per level
+//life icons
+var livesArr = [
+	{ type: 'life1', imgName: 'life', x: 145, y: 375, width: 25, height: 25},
+	{ type: 'life2', imgName: 'life', x: 160, y: 375, width: 25, height: 25},
+	{ type: 'life3', imgName: 'life', x: 175, y: 375, width: 25, height: 25}
+]
+
+//all safe static tiles to populate for levelOne
 var levelOneStaticSafe = [
 	{ type: 'lilypad1', imgName: 'lilypad', x: 40, y: 345, width: 25, height: 25 },
 	{ type: 'lilypad2', imgName: 'lilypad', x: 90, y: 345, width: 25, height: 25 },
-	{ type: 'lilypad3', imgName: 'lilypad', x: 135, y: 345, width: 25, height: 25 },
+	{ type: 'lilypad3', imgName: 'lilypad', x: 140, y: 345, width: 25, height: 25 },
 	{ type: 'lilypad4', imgName: 'lilypad', x: 65, y: 295, width: 25, height: 25 },
 	{ type: 'lilypad5', imgName: 'lilypad', x: 110, y: 295, width: 25, height: 25 },
 	{ type: 'lilypad6', imgName: 'lilypad', x: 90, y: 220, width: 25, height: 25 },
@@ -49,29 +57,90 @@ var levelOneStaticSafe = [
 	{ type: 'lilypad9', imgName: 'lilypad', x: 90, y: 30, width: 25, height: 25 }
 ];
 
+//all bad boy tiles to populate for levelOne 
 var levelOneStaticBad = [
-	{ type: 'gator1', imgName: 'gator1', x: 55, y: 345, width: 25, height: 25 },
-	{ type: 'gator2', imgName: 'gator1', x: 55, y: 345, width: 25, height: 25 },
-	{ type: 'gator3', imgName: 'gator1', x: 55, y: 345, width: 25, height: 25 },
-	{ type: 'gator4', imgName: 'gator1', x: 55, y: 345, width: 25, height: 25 }
+	{ type: 'gator1', imgName: 'gator1', x: 40, y: 220, width: 25, height: 25 },
+	{ type: 'gator2', imgName: 'gator1', x: 140, y: 220, width: 25, height: 25 },
+	{ type: 'gator3', imgName: 'gator1', x: 40, y: 30, width: 25, height: 25 },
+	{ type: 'gator4', imgName: 'gator1', x: 140, y: 30, width: 25, height: 25 }
 ];
 
+//all safe static tiles to populate for levelTwo
+var levelTwoStaticSafe = [
+	{ type: 'lilypad1', imgName: 'lilypad', x: 40, y: 345, width: 25, height: 25 },
+	{ type: 'lilypad2', imgName: 'lilypad', x: 140, y: 345, width: 25, height: 25 },
+	{ type: 'lilypad3', imgName: 'lilypad', x: 65, y: 295, width: 25, height: 25 },
+	{ type: 'lilypad4', imgName: 'lilypad', x: 110, y: 295, width: 25, height: 25 },
+	{ type: 'lilypad5', imgName: 'lilypad', x: 90, y: 220, width: 25, height: 25 },
+	{ type: 'lilypad6', imgName: 'lilypad', x: 110, y: 145, width: 25, height: 25 },
+	{ type: 'lilypad7', imgName: 'lilypad', x: 90, y: 30, width: 25, height: 25 }
+];
+
+//all bad boy tiles to populate for levelTwo
+var levelTwoStaticBad = [
+	{ type: 'gator1', imgName: 'gator1', x: 40, y: 220, width: 25, height: 25 },
+	{ type: 'gator2', imgName: 'gator1', x: 140, y: 220, width: 25, height: 25 },
+	{ type: 'gator3', imgName: 'gator1', x: 40, y: 30, width: 25, height: 25 },
+	{ type: 'gator4', imgName: 'gator1', x: 140, y: 30, width: 25, height: 25 },
+	{ type: 'gator5', imgName: 'gator1', x: 90, y: 345, width: 25, height: 25 },
+	{ type: 'gator6', imgName: 'gator1', x: 65, y: 145, width: 25, height: 25 }
+];
+
+//all safe static tiles to populate for levelThree
+var levelThreeStaticSafe = [
+	{ type: 'lilypad1', imgName: 'lilypad', x: 140, y: 345, width: 25, height: 25 },
+	{ type: 'lilypad2', imgName: 'lilypad', x: 65, y: 295, width: 25, height: 25 },
+	{ type: 'lilypad3', imgName: 'lilypad', x: 90, y: 220, width: 25, height: 25 },
+	{ type: 'lilypad4', imgName: 'lilypad', x: 110, y: 145, width: 25, height: 25 },
+	{ type: 'lilypad5', imgName: 'lilypad', x: 90, y: 30, width: 25, height: 25 }
+];
+
+//all bad boy tiles to populate for levelThree
+var levelThreeStaticBad = [
+	{ type: 'gator1', imgName: 'gator1', x: 40, y: 220, width: 25, height: 25 },
+	{ type: 'gator2', imgName: 'gator1', x: 140, y: 220, width: 25, height: 25 },
+	{ type: 'gator3', imgName: 'gator1', x: 40, y: 30, width: 25, height: 25 },
+	{ type: 'gator4', imgName: 'gator1', x: 140, y: 30, width: 25, height: 25 },
+	{ type: 'gator5', imgName: 'gator1', x: 90, y: 345, width: 25, height: 25 },
+	{ type: 'gator6', imgName: 'gator1', x: 40, y: 345, width: 25, height: 25 },
+	{ type: 'gator7', imgName: 'gator1', x: 110, y: 295, width: 25, height: 25 }
+	];
+
 var staticSafe = function(staticSafe) {
-  for (var i = 0; i < staticSafe.length; i++) {
-    var safeTile = document.getElementById(staticSafe[i].imgName);
-    ctx.drawImage(safeTile, staticSafe[i].x, staticSafe[i].y, staticSafe[i].width, staticSafe[i].height);
-  }
+	for (var i = 0; i < staticSafe.length; i++) {
+		var safeTile = document.getElementById(staticSafe[i].imgName);
+		ctx.drawImage(safeTile, staticSafe[i].x, staticSafe[i].y, staticSafe[i].width, staticSafe[i].height);
+	}
 };
 
+var staticBad = function(staticBad) {
+	for (var i = 0; i < staticBad.length; i++) {
+		var badTile = document.getElementById(staticBad[i].imgName);
+		ctx.drawImage(badTile, staticBad[i].x, staticBad[i].y, staticBad[i].width, staticBad[i].height);
+	}
+};
 
+var lifeDisplay = function(livesArr, lives) {
+	for (var i = 0; i < lives; i++) {
+		var livesImg = document.getElementById(livesArr[i].imgName);
+		ctx.drawImage(livesImg, livesArr[i].x, livesArr[i].y, livesArr[i].width, livesArr[i].height);
+	}
+}
 
 var beginGame = function() {
 	win = false;
 	window.addEventListener('keydown', hop);
 	canvas.focus();
-	levelOne = window.setInterval(gameLoop, levelOneFrame);
+	
 	//if statements to find out what level it is and then
 	//displays stuff accordingly 
+	if (!levelOne && level===1) {
+		levelOne = window.setInterval(gameLoop, levelOneFrame);
+	} else if (!levelTwo && level===2) {
+		levelTwo = window.setInterval(gameLoop, levelTwoFrame);
+	} else if (!levelThree && level===3) {
+		levelThree = window.setInterval(gameLoop, levelThreeFrame);
+	};
 
 };
 
@@ -109,8 +178,20 @@ var hop = function(e) {
 var gameLoop = function() {
 	//clear between interval pops
 	ctx.clearRect(0, 0, 200, 400);
-	staticSafe(levelOneStaticSafe);
+
+	if (level === 1) {
+		staticBad(levelOneStaticBad);
+		staticSafe(levelOneStaticSafe);
+	} else if (level === 2) {
+		staticBad(levelTwoStaticBad);
+		staticSafe(levelTwoStaticSafe);
+	} else if (level === 3) {
+		staticBad(levelThreeStaticBad);
+		staticSafe(levelThreeStaticSafe);
+	}
+	
 	froggoDisplay();
+	lifeDisplay(livesArr, lives);
 }
 
 
