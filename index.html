@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset='utf-8'/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.2"/>
 	<title>Froggo</title>
 	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P|VT323" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
@@ -13,7 +13,7 @@
 	<main> 
 		<span id='hiScore'>HiScore: 600</span> <span id='score'>Score: 0</span>
 		<div class="canvasContainer">
-			<canvas></canvas>
+			<canvas id="canvas"></canvas>
 		</div>
 		<button type='button' id='startButton'>Start Game</button>
 		<form id='howManyPlayers'>
@@ -35,11 +35,56 @@
 
 	</main>
 
+	<!-- IMAGE STOCKPILE -->
+	<div style="display:none;">
+		<img id="froggo" src="./img/frogStatic.png">
+	</div>
+
+	<div style="display:none;">
+		<img id="froggoJump" src="./img/frogJump.png">
+	</div>
+
+	<div style="display:none;">
+		<img id="gator" src="./img/gator1.png">
+	</div>
+
+	<div style="display:none;">
+		<img id="gatorBlink" src="./img/gator2.png">
+	</div>
+
+	<div style="display:none;">
+		<img id="gatorChomp" src="./img/gatorChomp.png">
+	</div>
+
+	<div style="display:none;">
+		<img id="lilypad" src="./img/lilypad.png">
+	</div>
+
+	<div style="display:none;">
+		<img id="log" src="./img/log.png">
+	</div>
+
+	<div style="display:none;">
+		<img id="longLog" src="./img/longLog.png">
+	</div>
+
+	<div style="display:none;">
+		<img id="water" src="./img/water.png">
+	</div>
+
+	<div style="display:none;">
+		<img id="goal" src="./img/goalGround.png">
+	</div>
+
+	<div style="display:none;">
+		<img id="startGround" src="./img/ground.png">
+	</div>
+
 	<footer> 
 		<a href="http://www.github.com/egarrett94"><img class='icon' src="./img/githublogo.png"></a>
 		<a href="http://www.linkedin.com/in/emilymariegarrett94"><img class='icon' src="./img/linkedinicon.png"></a>
 		<a href="mailto:e.marie.garrett@gmail.com"><img class='icon' src="./img/emailicon.png"></a>
-		<span id='copyright'>©Emily Garrett 2018</span>
+		<span id='copyright'>Made with <span id="heart">&hearts;</span> by Emily Garrett 2018</span>
 	</footer>
 
 	<script

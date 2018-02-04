@@ -1,5 +1,9 @@
 /*font-family: 'VT323', monospace;
 font-family: 'Press Start 2P', cursive;*/
+html {
+	margin: 0;
+	padding: 0;
+}
 
 body {
 	font-family: 'VT323', monospace;
@@ -38,8 +42,10 @@ footer {
 	position: absolute;
 	margin-top: 10px;
 	padding-top: 7px;
+	padding-left: 10px;
 	bottom: 0;
-	width: 100%;
+	width: 99.2%;
+	margin-left: -10px;
 	height: 30px;
 	background-color: rgba(0,0,0,0.2);
 }
@@ -136,6 +142,7 @@ footer {
 
 #copyright {
 	color: white;
+	margin-left: 20px;
 }
 
 /*start of RADIO BUTTON STYLING*/
@@ -218,3 +225,9 @@ label {
 }
 
 /*end of RADIO BUTTON STYLING*/
+
+#heart {
+	font-family: sans-serif;
+	color: #d64161;
+	font-size: 18px;
+}
