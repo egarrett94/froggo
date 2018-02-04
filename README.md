@@ -19,12 +19,31 @@ Frogger game for Project 1 at General Assembly, WDI-17
 ![log](https://user-images.githubusercontent.com/25888207/35771681-b6cf6618-08e5-11e8-89f3-f64a0179152c.png)
 ![longlog](https://user-images.githubusercontent.com/25888207/35771682-b6e5b472-08e5-11e8-9171-1786d433ac94.png)
 ![water](https://user-images.githubusercontent.com/25888207/35771683-b6fca5ba-08e5-11e8-800b-0e9eae866558.png)
+![life](https://user-images.githubusercontent.com/25888207/35774526-efe1d0e4-0926-11e8-8bac-72910a4aae81.png)
 
 ![froggobg](https://user-images.githubusercontent.com/25888207/35771672-b61f95da-08e5-11e8-987d-e30fc3ffc00e.jpg)
 
 ## Initial planning
+
 After making my Tic-Tac-Toe game and planning the logic/design sort of on the fly, I wanted to sit down and really plan this one out. This is my first real HTML5 Canvas project, so the learning curve is steep! I wanted to make this as easy on myself as I can, outside of learning the concepts in general. 
 
 I started by making rough plans of what sort of functions I would be calling to make various things happen in the game. Some examples would be: count() to find out the time remaining, or loseHeart() to decrease the number of lives, reset the gameboard, and reset the timer. 
 
 After making that list, I dove straight into Canvas documentation, and tried to make a plan on how I could divvy up the board into a grid. The play area itself is 200x400px, so 25x25px squares would make up the grid in its entirety. 8 columns, 16 rows.
+
+## Putting it all into effect
+
+I began with the website design, laying out the HTML and styling it accordingly with CSS. I am usually pretty quick with this, as I have a fair amount of design experience, and I knew the logic of the game would be taking up the majority of my time on this project. The site is quite responsive for the most part, but before I get full responsiveness and eventListeners for swiping as controls for Froggo, I want to get at least the desktop version functional. 
+
+I wanted to start this with mobile design as my first priority, but having spent the last couple months doing desktop > mobile, I didn't want to break out of the habit on something as important as this is to me! I'll have time to practice that later :) I felt great about the modal that shows up after clicking "How To Play", I'm pleased with the look and color palette of everything. (Though knowing me, I'll probably fiddle with that all throughout the build...) 
+
+![screen shot 2018-02-03 at 2 46 48 pm](https://user-images.githubusercontent.com/25888207/35774565-441a935c-0928-11e8-99f3-0a7fa89e4584.png)
+
+![screen shot 2018-02-03 at 2 59 03 pm](https://user-images.githubusercontent.com/25888207/35774577-84655ad2-0928-11e8-877c-4745044af937.png)
+
+
+Once I got the overall layout and styling done for all the page components, I dove into the HTML5 Canvas. It was a real challenge at first to understand how to place things, and how to make the board animate. I tried to think of how I would do this with a physical version of this, like a flipbook, and understood the whole process a lot better. 
+
+I made arrays of objects that would determine the placements of static components of the game, like the lilypads and the gators. I use those to iterate through the arrays and .drawImage() each one onto the board upon startup! 
+
+The next challenge comes with determining collision mechanics and making the logs float across the screens at different speeds...
