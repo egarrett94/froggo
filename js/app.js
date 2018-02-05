@@ -51,6 +51,16 @@ var y = 370;
 //initialized counters
 var level = 1;
 var lives = 3;
+var count = 45;
+var countdown = $('#timer');
+
+var timerStart = function() {
+  count--;
+  if (count <= 0) {
+     clearInterval(counter);
+     gameOver();
+  }
+}
 
 //event listeners to start game
 var startButton = $('#startButton');
@@ -295,7 +305,6 @@ var movingObjects = function(movingObjects) {
 			movingObjects[i].x = tempXR; 
 		} 
 	}
-
 };
 
 //displays the amount of lives left 
@@ -360,7 +369,7 @@ var beginGame = function() {
 	} else if (!levelThree && level===3) {
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
 	};
-
+	var timer = setInterval(timerStart, 1000); //1000 will  run it every 1 second
 };
 
 var spaceStart = function(e) {
@@ -418,20 +427,23 @@ var gameLoop = function() {
 		staticBad(levelOneStaticBad);
 		staticSafe(levelOneStaticSafe);
 		movingObjects(levelOneMovingBad);
-	//	movingRespawn(levelOneMovingBad);
 	} else if (level === 2) {
 		staticBad(levelTwoStaticBad);
 		staticSafe(levelTwoStaticSafe);
-		// movingObjects(levelTwoMovingBad);
+		movingObjects(levelTwoMovingBad);
 	} else if (level === 3) {
 		staticBad(levelThreeStaticBad);
 		staticSafe(levelThreeStaticSafe);
-		// movingObjects(levelThreeMovingBad);
+		movingObjects(levelThreeMovingBad);
 	}
 	froggoDisplay();
 	checkBounds();
 	checkForGoal();
 	lifeDisplay(livesArr, lives);
+	countdown.text(count);
+	ctx.font = '20px Courier';
+	ctx.fillStyle = '#f6fc88';
+  	ctx.fillText(countdown.text(), 5, 395); 
 }
 
 
