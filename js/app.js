@@ -247,25 +247,42 @@ var checkBounds = function() {
 	}
 }
 
+//will check if the froggo is within a certain amount of distance of a gator
+//and then gator opens mouth threateningly!!
 var gatorDistanceCheck = function(x1, y1, x2, y2) {
-	//will check if the froggo is within a certain amount of distance 
-	//of a safe square
 	var xDistance = x2 - x1;
 	var yDistance = y2 - y1;
-	var crashZone = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+	var gatorZone = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
 
-	if(crashZone <= 50) {
+	if(gatorZone <= 35) {
 		return true;
 	} else {
 		return false;
 	}
 }
 
-var onLog = function() {
+var logDistanceCheck = function(x1, y1, x2, y2) {
+	var xDistance = x2 - x1;
+	var yDistance = y2 - y1;
+	var logZone = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+
+	if (logZone <= 5) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+var onLog = function(staticObjectsArray) {
 	//checks to see if the froggo is on the log or not 
 	//if so, froggo inherits the dx value from log
 	//so she moves along with it 
-
+	for (var i = 0; i < staticObjectsArray.length; i++) {
+		var currentLog = document.getElementById(staticObjectsArray[i].imgName);
+		if (logDistanceCheck(x, y, staticObjectsArray[i].x, staticObjectsArray[i].y) === true) {
+			x += staticObjectsArray[i].dx;
+		}
+	}
 }
 
 var nearGator = function(gatorArray) {
@@ -451,15 +468,21 @@ var gameLoop = function() {
 		staticSafe(levelOneStaticSafe);
 		movingObjects(levelOneMovingBad);
 		nearGator(levelOneStaticBad);
+		onLog(levelOneMovingBad);
 	} else if (level === 2) {
 		staticBad(levelTwoStaticBad);
 		staticSafe(levelTwoStaticSafe);
 		movingObjects(levelTwoMovingBad);
+		nearGator(levelTwoStaticBad);
+		onLog(levelTwoMovingBad);
 	} else if (level === 3) {
 		staticBad(levelThreeStaticBad);
 		staticSafe(levelThreeStaticSafe);
 		movingObjects(levelThreeMovingBad);
+		nearGator(levelThreeStaticBad);
+		onLog(levelThreeMovingBad);
 	}
+	
 	froggoDisplay();
 	checkBounds();
 	checkForGoal();
