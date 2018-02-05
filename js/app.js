@@ -247,20 +247,39 @@ var checkBounds = function() {
 	}
 }
 
-var safetyCheck = function() {
+var gatorDistanceCheck = function(x1, y1, x2, y2) {
 	//will check if the froggo is within a certain amount of distance 
 	//of a safe square
+	var xDistance = x2 - x1;
+	var yDistance = y2 - y1;
+	var crashZone = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+
+	if(crashZone <= 50) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 var onLog = function() {
 	//checks to see if the froggo is on the log or not 
 	//if so, froggo inherits the dx value from log
 	//so she moves along with it 
+
 }
 
-var nearGator = function() {
+var nearGator = function(gatorArray) {
 	//checks to see if froggo is near gator!
 	//if so, display open gator mouth 
+	for (var i = 0; i < gatorArray.length; i++) {
+		var currentGator = document.getElementById(gatorArray[i].imgName);
+		var gatorChomp = document.getElementById('gatorChomp');
+		if (gatorDistanceCheck(x,y,gatorArray[i].x, gatorArray[i].y) === true) {
+			ctx.drawImage(gatorChomp, gatorArray[i].x, gatorArray[i].y, 25, 25);
+		} else {
+			ctx.drawImage(currentGator, gatorArray[i].x, gatorArray[i].y, 25, 25);
+		}
+	}
 }
 
 //checks to see if froggo is over the finish line yet 
@@ -297,7 +316,6 @@ var movingObjects = function(movingObjects) {
 		var img = document.getElementById(movingObjects[i].imgName);
 		ctx.drawImage(img, movingObjects[i].x, movingObjects[i].y, movingObjects[i].width, movingObjects[i].height);
 		movingObjects[i].x += movingObjects[i].dx;
-
 		if (movingObjects[i].x > 202) {
 			var tempXL = -25;
 			movingObjects[i].x = tempXL;
@@ -432,6 +450,7 @@ var gameLoop = function() {
 		staticBad(levelOneStaticBad);
 		staticSafe(levelOneStaticSafe);
 		movingObjects(levelOneMovingBad);
+		nearGator(levelOneStaticBad);
 	} else if (level === 2) {
 		staticBad(levelTwoStaticBad);
 		staticSafe(levelTwoStaticSafe);
