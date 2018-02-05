@@ -27,6 +27,7 @@ $("#info-close, .info-overlay").on("click", function(){
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
+var contScreen = $('.continue-content, .continue-screen');
 //height/width of canvas
 canvas.width = 200;
 canvas.height = 400;
@@ -49,7 +50,7 @@ var y = 370;
 
 //initialized counters
 var level = 1;
-var lives = 0;
+var lives = 3;
 
 //event listeners to start game
 var startButton = $('#startButton');
@@ -226,12 +227,12 @@ var checkBounds = function() {
 	if (x < -15 || x > 202) {
 		console.log('froggo out of bounds!');
 		withinBounds = false;
-		//loseLife 
+		loseHeart();
 	}
 
 	if (y > 390) {
 		withinBounds = false;
-		//loseLife
+		loseHeart();
 		console.log('froggo out of bounds!');
 	}
 }
@@ -298,15 +299,41 @@ var lifeDisplay = function(livesArr, lives) {
 	}
 }
 
+var continueGame = function() {
+	if (contScreen.hasClass('active')){
+		contScreen.removeClass('active');
+	} 
+	x = 85;
+	y = 375;
+	if (level===1) {
+		levelOne = window.setInterval(gameLoop, levelOneFrame);
+	} else if (level===2) {
+		levelTwo = window.setInterval(gameLoop, levelTwoFrame);
+	} else if (level===3) {
+		levelThree = window.setInterval(gameLoop, levelThreeFrame);
+	};
+
+}
+
 var loseHeart = function() {
-	lives--; 
+	if (level===1) {
+		clearInterval(levelOne);
+		lives--; 
+	} else if (level===2) {
+		clearInterval(levelTwo);
+		lives--; 
+	} else if (level===3) {
+		clearInterval(levelThree);
+		lives--; 
+	};
+	contScreen.addClass('active');
+	$('#continue-button').on('click', continueGame);
 }
 
 //this adds all the event listeners, focuses onto the canvas
 //for a better ux, and determines which level we are on so it 
 //displays the right board 
 var beginGame = function() {
-	lives = 3;
 	win = false;
 	window.addEventListener('keydown', hop);
 	canvas.focus();

@@ -50,7 +50,7 @@ footer {
 	background-color: rgba(0,0,0,0.2);
 }
 
-#infoButton {
+#infoButton{
 	background-color: #D2F92A;
 	border-radius: 10px;
 	font-family: 'Press Start 2P', cursive;
@@ -65,16 +65,11 @@ footer {
 	background-color: #C1DC47;
 }
 
-.info-content h2 {
-	text-shadow: ;
-}
-
-
 .icon.info {
 	filter: none;
 }
 
-.info-overlay {
+.info-overlay, .continue-screen {
 	visibility: hidden;
 	position: absolute;
 	background-color: #f9b82a;
@@ -87,24 +82,24 @@ footer {
 	border-radius: 20px;
 }
 
-.info-overlay.active{
+.info-overlay.active, .continue-screen.active {
 	/*displays info when "active" class is present*/
 	visibility: visible;
 	text-align: center;
 }
 
-.info-content {
+.info-content, .continue-content {
 	/*Hides info content when there is no "active" class */
 	visibility: hidden;
 }
 
-.info-content.active {
+.info-content.active, .continue-content.active {
 	/*Shows info content when "active" class is present */
 	visibility: visible;
 	margin: 10px;
 }
 
-#info-close {
+#info-close, #continue-button {
 	padding: 5px 15px;
 	background-color: white;
 	border: 4px outset grey;
