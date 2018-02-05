@@ -83,40 +83,99 @@ var levelOneStaticBad = [
 ];
 
 var levelOneMovingBad = [
-	{ type: 'longLog1', imgName: 'longLog', x: 240, y: 320, width: 50, height: 25, dx: -0.5},
+	{ type: 'starter', imgName: 'longLog', x: 240, y: 320, width: 50, height: 25, dx: -0.5},
 	{ type: 'longLog2', imgName: 'longLog', x: 40, y: 320, width: 50, height: 25, dx: -0.5},
 	{ type: 'longLog3', imgName: 'longLog', x: 140, y: 320, width: 50, height: 25, dx: -0.5},
 	{ type: 'log1', imgName: 'log', x: -25, y: 270, width: 25, height: 25, dx: 0.6},
 	{ type: 'log2', imgName: 'log', x: 20, y: 270, width: 25, height: 25, dx: 0.6},
 	{ type: 'log3', imgName: 'log', x: 65, y: 270, width: 25, height: 25, dx: 0.6 },
 	{ type: 'log4', imgName: 'log', x: 110, y: 270, width: 25, height: 25, dx: 0.6 },
-	{ type: 'log5', imgName: 'log', x: 150, y: 270, width: 25, height: 25, dx: 0.6 },
+	{ type: 'starter', imgName: 'log', x: 150, y: 270, width: 25, height: 25, dx: 0.6 },
 	{ type: 'log6', imgName: 'log', x: -50, y: 245, width: 25, height: 25, dx: 0.5 },
 	{ type: 'log7', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: 0.5 },
 	{ type: 'log8', imgName: 'log', x: 40, y: 245, width: 25, height: 25, dx: 0.5 },
-	{ type: 'log9', imgName: 'log', x: 85, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 85, y: 245, width: 25, height: 25, dx: 0.5 },
 	{ type: 'log10', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: 0.5 },
-	{ type: 'log11', imgName: 'log', x: 130, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 130, y: 245, width: 25, height: 25, dx: 0.5 },
 	{ type: 'log12', imgName: 'log', x: 65, y: 170, width: 25, height: 25, dx: 0.5 },
 	{ type: 'log13', imgName: 'log', x: -5, y: 170, width: 25, height: 25, dx: 0.5 },
-	{ type: 'log14', imgName: 'log', x: 130, y: 170, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 130, y: 170, width: 25, height: 25, dx: 0.5 },
 	{ type: 'log15', imgName: 'log', x: 65, y: 50, width: 25, height: 25, dx: 0.5 },
 	{ type: 'log16', imgName: 'log', x: -5, y: 50, width: 25, height: 25, dx: 0.5 },
-	{ type: 'log17', imgName: 'log', x: 130, y: 50, width: 25, height: 25, dx: 0.5 },
-	{ type: 'log18', imgName: 'log', x: 65, y: 125, width: 25, height: 25, dx: -0.5 },
+	{ type: 'starter', imgName: 'log', x: 130, y: 50, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 65, y: 125, width: 25, height: 25, dx: -0.5 },
 	{ type: 'log19', imgName: 'log', x: 190, y: 125, width: 25, height: 25, dx: -0.5 },
 	{ type: 'log20', imgName: 'log', x: 130, y: 125, width: 25, height: 25, dx: -0.5 },
 	{ type: 'log21', imgName: 'log', x: 245, y: 125, width: 25, height: 25, dx: -0.5 },
 	{ type: 'log22', imgName: 'log', x: 65, y: 195, width: 25, height: 25, dx: -0.5 },
 	{ type: 'log23', imgName: 'log', x: 190, y: 195, width: 25, height: 25, dx: -0.5 },
 	{ type: 'log24', imgName: 'log', x: 130, y: 195, width: 25, height: 25, dx: -0.5 },
-	{ type: 'log25', imgName: 'log', x: -5, y: 195, width: 25, height: 25, dx: -0.5 },
-	{ type: 'longLog4', imgName: 'longLog', x: 40, y: 75, width: 50, height: 25, dx: -0.5},
+	{ type: 'starter', imgName: 'log', x: -5, y: 195, width: 25, height: 25, dx: -0.5 },
+	{ type: 'starter', imgName: 'longLog', x: 40, y: 75, width: 50, height: 25, dx: -0.5},
 	{ type: 'longLog5', imgName: 'longLog', x: 140, y: 75, width: 50, height: 25, dx: -0.5},
-	{ type: 'longLog6', imgName: 'longLog', x: 165, y: 100, width: 50, height: 25, dx: 0.5},
+	{ type: 'starter', imgName: 'longLog', x: 165, y: 100, width: 50, height: 25, dx: 0.5},
 	{ type: 'longLog7', imgName: 'longLog', x: 90, y: 100, width: 50, height: 25, dx: 0.5},
-	{ type: 'longLog8', imgName: 'longLog', x: 20, y: 100, width: 50, height: 25, dx: 0.5},
-	{ type: 'longLog9', imgName: 'longLog', x: 140, y: 320, width: 50, height: 25, dx: -0.5}
+	{ type: 'longLog8', imgName: 'longLog', x: 20, y: 100, width: 50, height: 25, dx: 0.5}
+];
+
+var levelTwoMovingBad = [
+	{ type: 'starter', imgName: 'longLog', x: 240, y: 320, width: 50, height: 25, dx: -0.5},
+	{ type: 'longLog2', imgName: 'longLog', x: 40, y: 320, width: 50, height: 25, dx: -0.5},
+	{ type: 'log1', imgName: 'log', x: -25, y: 270, width: 25, height: 25, dx: 0.6},
+	{ type: 'log2', imgName: 'log', x: 20, y: 270, width: 25, height: 25, dx: 0.6},
+	{ type: 'log3', imgName: 'log', x: 65, y: 270, width: 25, height: 25, dx: 0.6 },
+	{ type: 'starter', imgName: 'log', x: 110, y: 270, width: 25, height: 25, dx: 0.6 },
+	{ type: 'starter', imgName: 'log', x: 150, y: 270, width: 25, height: 25, dx: 0.6 },
+	{ type: 'log6', imgName: 'log', x: -50, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log7', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 85, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log10', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 130, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log12', imgName: 'log', x: 65, y: 170, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 130, y: 170, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log15', imgName: 'log', x: 65, y: 50, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log16', imgName: 'log', x: -5, y: 50, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 130, y: 50, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 65, y: 125, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log19', imgName: 'log', x: 190, y: 125, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log21', imgName: 'log', x: 245, y: 125, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log22', imgName: 'log', x: 65, y: 195, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log23', imgName: 'log', x: 190, y: 195, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log24', imgName: 'log', x: 130, y: 195, width: 25, height: 25, dx: -0.5 },
+	{ type: 'starter', imgName: 'log', x: -5, y: 195, width: 25, height: 25, dx: -0.5 },
+	{ type: 'starter', imgName: 'longLog', x: 40, y: 75, width: 50, height: 25, dx: -0.5},
+	{ type: 'longLog5', imgName: 'longLog', x: 140, y: 75, width: 50, height: 25, dx: -0.5},
+	{ type: 'starter', imgName: 'longLog', x: 165, y: 100, width: 50, height: 25, dx: 0.5},
+	{ type: 'longLog7', imgName: 'longLog', x: 90, y: 100, width: 50, height: 25, dx: 0.5}
+];
+
+var levelThreeMovingBad = [
+	{ type: 'starter', imgName: 'longLog', x: 240, y: 320, width: 50, height: 25, dx: -0.5},
+	{ type: 'longLog2', imgName: 'longLog', x: 40, y: 320, width: 50, height: 25, dx: -0.5},
+	{ type: 'log1', imgName: 'log', x: -25, y: 270, width: 25, height: 25, dx: 0.6},
+	{ type: 'log2', imgName: 'log', x: 20, y: 270, width: 25, height: 25, dx: 0.6},
+	{ type: 'log3', imgName: 'log', x: 65, y: 270, width: 25, height: 25, dx: 0.6 },
+	{ type: 'starter', imgName: 'log', x: 110, y: 270, width: 25, height: 25, dx: 0.6 },
+	{ type: 'starter', imgName: 'log', x: 150, y: 270, width: 25, height: 25, dx: 0.6 },
+	{ type: 'log6', imgName: 'log', x: -50, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log7', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 85, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 130, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log12', imgName: 'log', x: 65, y: 170, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 130, y: 170, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log15', imgName: 'log', x: 65, y: 50, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log16', imgName: 'log', x: -5, y: 50, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 130, y: 50, width: 25, height: 25, dx: 0.5 },
+	{ type: 'starter', imgName: 'log', x: 65, y: 125, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log19', imgName: 'log', x: 190, y: 125, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log21', imgName: 'log', x: 245, y: 125, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log22', imgName: 'log', x: 65, y: 195, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log24', imgName: 'log', x: 130, y: 195, width: 25, height: 25, dx: -0.5 },
+	{ type: 'starter', imgName: 'log', x: -5, y: 195, width: 25, height: 25, dx: -0.5 },
+	{ type: 'starter', imgName: 'longLog', x: 40, y: 75, width: 50, height: 25, dx: -0.5},
+	{ type: 'longLog5', imgName: 'longLog', x: 140, y: 75, width: 50, height: 25, dx: -0.5},
+	{ type: 'starter', imgName: 'longLog', x: 165, y: 100, width: 50, height: 25, dx: 0.5},
+	{ type: 'longLog7', imgName: 'longLog', x: 90, y: 100, width: 50, height: 25, dx: 0.5}
 ];
 
 //all safe static tiles to populate for levelTwo
@@ -184,14 +243,19 @@ var safetyCheck = function() {
 
 var onLog = function() {
 	//checks to see if the froggo is on the log or not 
+	//if so, froggo inherits the dx value from log
+	//so she moves along with it 
 }
 
+//checks to see if froggo is over the finish line yet 
 var checkForGoal = function() {
-	//this will check to see if froggo made it to
-	//the other side!! 
-	//if yes and not level 3, display 'next level' for 3 sec
-	//if yes and level 3, display 'you won!' and score
-	//if no, don't do anything
+	if (y < 10 && level !== 3) {
+		//display next level for 3 sec
+		console.log('yay');
+	}
+	if (y < 10 && level === 3) {
+		//display you won! and score/time
+	}
 }
 
 //displays safe static spots to walk on the board
@@ -215,10 +279,12 @@ var staticBad = function(staticBad) {
 var movingObjects = function(movingObjects) {
 	for (var i = 0; i < movingObjects.length; i++) {
 		var img = document.getElementById(movingObjects[i].imgName);
-		// if (!(movingObjects[i].x < -15 || movingObjects[i].x > 202) && !(movingObjects[i].y < -15 || movingObjects[i].y > 202)) {
+		ctx.drawImage(img, movingObjects[i].x, movingObjects[i].y, movingObjects[i].width, movingObjects[i].height);
+		movingObjects[i].x += movingObjects[i].dx;
+		if ((movingObjects[i].type === 'starter') && (movingObjects[i].x > 202)) {
 			ctx.drawImage(img, movingObjects[i].x, movingObjects[i].y, movingObjects[i].width, movingObjects[i].height);
 			movingObjects[i].x += movingObjects[i].dx;
-		// }
+		}
 	}
 };
 
@@ -230,6 +296,10 @@ var lifeDisplay = function(livesArr, lives) {
 		var livesImg = document.getElementById(livesArr[i].imgName);
 		ctx.drawImage(livesImg, livesArr[i].x, livesArr[i].y, livesArr[i].width, livesArr[i].height);
 	}
+}
+
+var loseHeart = function() {
+	lives--; 
 }
 
 //this adds all the event listeners, focuses onto the canvas
@@ -313,6 +383,7 @@ var gameLoop = function() {
 	}
 	froggoDisplay();
 	checkBounds();
+	checkForGoal();
 	lifeDisplay(livesArr, lives);
 }
 
