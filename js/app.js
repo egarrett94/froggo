@@ -82,6 +82,19 @@ var levelOneStaticBad = [
 	{ type: 'gator4', imgName: 'gator1', x: 140, y: 30, width: 25, height: 25 }
 ];
 
+var levelOneMovingBad = [
+	{ type: 'longLog1', imgName: 'longLog', x: 40, y: 345, width: 25, height: 25 },
+	{ type: 'longLog2', imgName: 'longLog', x: 90, y: 345, width: 25, height: 25 },
+	{ type: 'log1', imgName: 'log', x: 140, y: 345, width: 25, height: 25 },
+	{ type: 'log2', imgName: 'log', x: 65, y: 295, width: 25, height: 25 },
+	{ type: 'log3', imgName: 'log', x: 110, y: 295, width: 25, height: 25 },
+	{ type: 'log4', imgName: 'log', x: 90, y: 220, width: 25, height: 25 },
+	{ type: 'log5', imgName: 'log', x: 65, y: 145, width: 25, height: 25 },
+	{ type: 'log6', imgName: 'log', x: 110, y: 145, width: 25, height: 25 },
+	{ type: 'lilypad9', imgName: 'lilypad', x: 90, y: 30, width: 25, height: 25 }
+
+];
+
 //all safe static tiles to populate for levelTwo
 var levelTwoStaticSafe = [
 	{ type: 'lilypad1', imgName: 'lilypad', x: 40, y: 345, width: 25, height: 25 },
@@ -164,6 +177,12 @@ var staticBad = function(staticBad) {
 	}
 };
 
+var X = 0;
+var movingObjects = function() {
+	ctx.drawImage(log, X, 0, 25, 25);
+	X += 2;
+}
+
 
 //displays the amount of lives left 
 //eventually add function to detract from lives global var 
@@ -234,6 +253,8 @@ var hop = function(e) {
 	}
 };
 
+var log = document.getElementById('log');
+
 //this is the animation loop initializer 
 var gameLoop = function() {
 	//clear between interval pops
@@ -242,6 +263,7 @@ var gameLoop = function() {
 	if (level === 1) {
 		staticBad(levelOneStaticBad);
 		staticSafe(levelOneStaticSafe);
+		movingObjects();
 	} else if (level === 2) {
 		staticBad(levelTwoStaticBad);
 		staticSafe(levelTwoStaticSafe);
@@ -249,7 +271,6 @@ var gameLoop = function() {
 		staticBad(levelThreeStaticBad);
 		staticSafe(levelThreeStaticSafe);
 	}
-	
 	froggoDisplay();
 	checkBounds();
 	lifeDisplay(livesArr, lives);
