@@ -83,16 +83,40 @@ var levelOneStaticBad = [
 ];
 
 var levelOneMovingBad = [
-	{ type: 'longLog1', imgName: 'longLog', x: 40, y: 345, width: 25, height: 25 },
-	{ type: 'longLog2', imgName: 'longLog', x: 90, y: 345, width: 25, height: 25 },
-	{ type: 'log1', imgName: 'log', x: 140, y: 345, width: 25, height: 25 },
-	{ type: 'log2', imgName: 'log', x: 65, y: 295, width: 25, height: 25 },
-	{ type: 'log3', imgName: 'log', x: 110, y: 295, width: 25, height: 25 },
-	{ type: 'log4', imgName: 'log', x: 90, y: 220, width: 25, height: 25 },
-	{ type: 'log5', imgName: 'log', x: 65, y: 145, width: 25, height: 25 },
-	{ type: 'log6', imgName: 'log', x: 110, y: 145, width: 25, height: 25 },
-	{ type: 'lilypad9', imgName: 'lilypad', x: 90, y: 30, width: 25, height: 25 }
-
+	{ type: 'longLog1', imgName: 'longLog', x: 240, y: 320, width: 50, height: 25, dx: -0.5},
+	{ type: 'longLog2', imgName: 'longLog', x: 40, y: 320, width: 50, height: 25, dx: -0.5},
+	{ type: 'longLog3', imgName: 'longLog', x: 140, y: 320, width: 50, height: 25, dx: -0.5},
+	{ type: 'log1', imgName: 'log', x: -25, y: 270, width: 25, height: 25, dx: 0.6},
+	{ type: 'log2', imgName: 'log', x: 20, y: 270, width: 25, height: 25, dx: 0.6},
+	{ type: 'log3', imgName: 'log', x: 65, y: 270, width: 25, height: 25, dx: 0.6 },
+	{ type: 'log4', imgName: 'log', x: 110, y: 270, width: 25, height: 25, dx: 0.6 },
+	{ type: 'log5', imgName: 'log', x: 150, y: 270, width: 25, height: 25, dx: 0.6 },
+	{ type: 'log6', imgName: 'log', x: -50, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log7', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log8', imgName: 'log', x: 40, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log9', imgName: 'log', x: 85, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log10', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log11', imgName: 'log', x: 130, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log12', imgName: 'log', x: 65, y: 170, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log13', imgName: 'log', x: -5, y: 170, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log14', imgName: 'log', x: 130, y: 170, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log15', imgName: 'log', x: 65, y: 50, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log16', imgName: 'log', x: -5, y: 50, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log17', imgName: 'log', x: 130, y: 50, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log18', imgName: 'log', x: 65, y: 125, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log19', imgName: 'log', x: 190, y: 125, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log20', imgName: 'log', x: 130, y: 125, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log21', imgName: 'log', x: 245, y: 125, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log22', imgName: 'log', x: 65, y: 195, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log23', imgName: 'log', x: 190, y: 195, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log24', imgName: 'log', x: 130, y: 195, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log25', imgName: 'log', x: -5, y: 195, width: 25, height: 25, dx: -0.5 },
+	{ type: 'longLog4', imgName: 'longLog', x: 40, y: 75, width: 50, height: 25, dx: -0.5},
+	{ type: 'longLog5', imgName: 'longLog', x: 140, y: 75, width: 50, height: 25, dx: -0.5},
+	{ type: 'longLog6', imgName: 'longLog', x: 165, y: 100, width: 50, height: 25, dx: 0.5},
+	{ type: 'longLog7', imgName: 'longLog', x: 90, y: 100, width: 50, height: 25, dx: 0.5},
+	{ type: 'longLog8', imgName: 'longLog', x: 20, y: 100, width: 50, height: 25, dx: 0.5},
+	{ type: 'longLog9', imgName: 'longLog', x: 140, y: 320, width: 50, height: 25, dx: -0.5}
 ];
 
 //all safe static tiles to populate for levelTwo
@@ -134,7 +158,7 @@ var levelThreeStaticBad = [
 	{ type: 'gator5', imgName: 'gator1', x: 90, y: 345, width: 25, height: 25 },
 	{ type: 'gator6', imgName: 'gator1', x: 40, y: 345, width: 25, height: 25 },
 	{ type: 'gator7', imgName: 'gator1', x: 110, y: 295, width: 25, height: 25 }
-	];
+];
 
 var checkBounds = function() {
 	withinBounds = true;
@@ -151,6 +175,15 @@ var checkBounds = function() {
 		//loseLife
 		console.log('froggo out of bounds!');
 	}
+}
+
+var safetyCheck = function() {
+	//will check if the froggo is within a certain amount of distance 
+	//of a safe square
+}
+
+var onLog = function() {
+	//checks to see if the froggo is on the log or not 
 }
 
 var checkForGoal = function() {
@@ -177,12 +210,17 @@ var staticBad = function(staticBad) {
 	}
 };
 
-var X = 0;
-var movingObjects = function() {
-	ctx.drawImage(log, X, 0, 25, 25);
-	X += 2;
-}
-
+//this will update the x/y values of each object to the delta x/y each 
+//frame so it will animate them at various rates of movement
+var movingObjects = function(movingObjects) {
+	for (var i = 0; i < movingObjects.length; i++) {
+		var img = document.getElementById(movingObjects[i].imgName);
+		// if (!(movingObjects[i].x < -15 || movingObjects[i].x > 202) && !(movingObjects[i].y < -15 || movingObjects[i].y > 202)) {
+			ctx.drawImage(img, movingObjects[i].x, movingObjects[i].y, movingObjects[i].width, movingObjects[i].height);
+			movingObjects[i].x += movingObjects[i].dx;
+		// }
+	}
+};
 
 //displays the amount of lives left 
 //eventually add function to detract from lives global var 
@@ -263,13 +301,15 @@ var gameLoop = function() {
 	if (level === 1) {
 		staticBad(levelOneStaticBad);
 		staticSafe(levelOneStaticSafe);
-		movingObjects();
+		movingObjects(levelOneMovingBad);
 	} else if (level === 2) {
 		staticBad(levelTwoStaticBad);
 		staticSafe(levelTwoStaticSafe);
+		// movingObjects(levelTwoMovingBad);
 	} else if (level === 3) {
 		staticBad(levelThreeStaticBad);
 		staticSafe(levelThreeStaticSafe);
+		// movingObjects(levelThreeMovingBad);
 	}
 	froggoDisplay();
 	checkBounds();
