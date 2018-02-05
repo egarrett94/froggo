@@ -144,6 +144,10 @@ footer {
 	margin-left: 20px;
 }
 
+#timer {
+	display: none;
+}
+
 /*start of RADIO BUTTON STYLING*/
 
 @keyframes click-wave {

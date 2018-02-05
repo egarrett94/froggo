@@ -53,11 +53,12 @@ var level = 1;
 var lives = 3;
 var count = 45;
 var countdown = $('#timer');
+var timer = null;
 
 var timerStart = function() {
   count--;
   if (count <= 0) {
-     clearInterval(counter);
+     clearInterval(timer);
      gameOver();
   }
 }
@@ -323,14 +324,18 @@ var continueGame = function() {
 	} 
 	x = 85;
 	y = 375;
+	count = 45; 
 	if (level===1) {
 		levelOne = window.setInterval(gameLoop, levelOneFrame);
 	} else if (level===2) {
 		levelTwo = window.setInterval(gameLoop, levelTwoFrame);
 	} else if (level===3) {
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
-	};
-	//reset timer 
+	};	
+	clearInterval(timer);
+	timer = setInterval(timerStart, 1000); //1000 will  run it every 1 second
+	console.log('timer in continueGame started');
+	
 }
 
 var loseHeart = function() {
@@ -348,6 +353,7 @@ var loseHeart = function() {
 	} else if (lives === 0) { 
 		gameOver();
 	}
+	clearInterval(timer);
 	contScreen.addClass('active');
 	$('#continue-button').on('click', continueGame);
 }
@@ -369,7 +375,8 @@ var beginGame = function() {
 	} else if (!levelThree && level===3) {
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
 	};
-	var timer = setInterval(timerStart, 1000); //1000 will  run it every 1 second
+	timer = setInterval(timerStart, 1000);
+	console.log('timer in begin game started'); //1000 will  run it every 1 second
 };
 
 var spaceStart = function(e) {
@@ -413,8 +420,6 @@ var hop = function(e) {
 		x += 25;
 	}
 };
-
-var log = document.getElementById('log');
 
 //this is the animation loop initializer 
 //and all the things that ought to begin 
