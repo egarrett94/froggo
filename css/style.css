@@ -110,6 +110,10 @@ footer {
 	left: 42px;
 }
 
+#continue-button {
+	margin-left: 10px;
+}
+
 .icon {
 	width: 20px;
 	height: 20px;
