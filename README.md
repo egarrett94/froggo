@@ -48,3 +48,20 @@ I made arrays of objects that would determine the placements of static component
 ![screen shot 2018-02-03 at 9 26 26 pm](https://user-images.githubusercontent.com/25888207/35774590-f0a3861a-0928-11e8-9cda-3cf1531aa1c0.png)
 
 The next challenge comes with determining collision mechanics and making the logs float across the screens at different speeds...
+
+## Moving Froggo on the Loggos!
+
+After a lot of wrestling, I managed to make froggo move with the logs. Loggos. Whatever. At first I was trying to create a new image on the board and let it move across every time the first log in the respective row went offscreen, but I realized I could simply change the x-value of the log if the x-value went over 200 or under -25 (so the log is completely hidden offscreen on either side) back to a proper starting position. Success!
+
+But then I realized I needed to make the frog move with the logs. This, for some reason, didn't seem to be as challenging of a prospect as I initially thought: I simply made the x-value of the frog increase/decrease the value of the log's delta-x (dx) key in their respective object declarations if the frog's coordinates were within a certain distance of the log's coordinates.
+
+![screen shot 2018-02-05 at 5 14 39 pm](https://user-images.githubusercontent.com/25888207/35837001-313af508-0a98-11e8-9c7f-44edfb579b4e.png) 
+
+I used that sort of idea with the gator images, too; I made the gator's mouths open up when the frog gets within a certain distance of them. 
+
+![screen shot 2018-02-05 at 5 14 54 pm](https://user-images.githubusercontent.com/25888207/35837002-314e3f1e-0a98-11e8-8aa1-5735297c39af.png)
+
+Success! I also created a timer that starts upon game start / game continuation after losing a heart. (After losing a heart, a modal pops up and lets you collect yourself before starting the game once more! Eventually I'll be adding a gameOver function that'll run if the lives are all out and you lose a heart again.) After playing the game a couple times, I also decided to add some sound effects to spice up the debugging process. (I'll probably regret that within the first 100th run of the game...)
+
+Next step is to make the water "lava"--the danger zone. Big yikes. 
+
