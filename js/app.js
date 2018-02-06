@@ -28,10 +28,12 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
 var contScreen = $('.continue-content, .continue-screen');
+var newLevelScreen = $('.next-level-screen, .next-level-content');
 //height/width of canvas
 canvas.width = 200;
 canvas.height = 400;
 
+var scoreBoard = $('#score');
 var score = 0;
 var collision = false;
 var gameLost = false;
@@ -39,8 +41,8 @@ var gameWin = false;
 var levelOne = null;
 var levelTwo = null;
 var levelThree = null;
-var levelOneFrame = 25;
-var levelTwoFrame = 20;
+var levelOneFrame = 23;
+var levelTwoFrame = 18;
 var levelThreeFrame = 15;
 var withinBounds = true;
 
@@ -312,17 +314,41 @@ var nearGator = function(gatorArray) {
 
 //checks to see if froggo is over the finish line yet 
 var checkForGoal = function() {
-	if (y < 10 && level !== 3) {
-		//display next level for 3 sec
+	if (y < 10 && level === 1) {
+		clearInterval(levelOne);
 		clearInterval(timer);
-		level++;
-		//var levelShow = setTimeout(function() {})
 		goalMetSound[0].play();
-	}
-	if (y < 10 && level === 3) {
+		newLevelScreen.addClass('active');
+		level++;
+		$('#next-level-button').on('click', newLevelButton);
+	} else if (y < 10 && level === 2){
+		clearInterval(levelTwo);
+		clearInterval(timer);
+		goalMetSound[0].play();
+		newLevelScreen.addClass('active');
+		level++;
+		$('#next-level-button').on('click', newLevelButton);
+	} else if (y < 10 && level === 3) {
+		clearInterval(levelThree);
 		clearInterval(timer);
 		//display you won! and score/time
 	}
+}
+
+var newLevelButton = function () {
+	newLevelScreen.removeClass('active');
+	x = 85;
+	y = 370;
+	count = 45; 
+	if (level===1) {
+		levelOne = window.setInterval(gameLoop, levelOneFrame);
+	} else if (level===2) {
+		levelTwo = window.setInterval(gameLoop, levelTwoFrame);
+	} else if (level===3) {
+		levelThree = window.setInterval(gameLoop, levelThreeFrame);
+	};	
+	clearInterval(timer);
+	timer = setInterval(timerStart, 1000); //1000 will  run it every 1 second
 }
 
 //displays safe static spots to walk on the board
@@ -343,6 +369,8 @@ var staticBad = function(staticBad) {
 
 //this will update the x/y values of each object to the delta x/y each 
 //frame so it will animate them at various rates of movement
+//if the image goes off the frame, it resets the x value to 
+//off the screen respective of what direction it's going
 var movingObjects = function(movingObjects) {
 	for (var i = 0; i < movingObjects.length; i++) {
 		var img = document.getElementById(movingObjects[i].imgName);
@@ -375,7 +403,7 @@ var continueGame = function() {
 		contScreen.removeClass('active');
 	} 
 	x = 85;
-	y = 375;
+	y = 370;
 	count = 45; 
 	if (level===1) {
 		levelOne = window.setInterval(gameLoop, levelOneFrame);
@@ -439,11 +467,11 @@ var beginGame = function() {
 
 var spaceStart = function(e) {
 	if(e.keyCode === 32) {
-		if (lives === 3) {
+		if (lives === 3 && level === 1) {
 			beginGame(); 
-		} else {
+		} else if (level >= 2) {
 			continueGame();
-		}
+		} 
 	}
 }
 
@@ -467,6 +495,7 @@ var hop = function(e) {
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
+		score+=20;
 	}
 	// v
 	if (e.keyCode === 40) {
@@ -474,6 +503,7 @@ var hop = function(e) {
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
+		score+=20;
 	}
 	// < 
 	if (e.keyCode === 37) {
@@ -481,6 +511,7 @@ var hop = function(e) {
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
+		score+=20;
 	}
 	// >
 	if (e.keyCode === 39) {
@@ -488,6 +519,7 @@ var hop = function(e) {
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
+		score+=20;
 	}
 };
 
@@ -517,7 +549,7 @@ var gameLoop = function() {
 		nearGator(levelThreeStaticBad);
 		onLog(levelThreeMovingBad);
 	}
-
+	scoreBoard.text("Score: " + score);
 	froggoDisplay();
 	checkBounds();
 	checkForGoal();
