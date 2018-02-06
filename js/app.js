@@ -29,6 +29,7 @@ var ctx = canvas.getContext('2d');
 
 var contScreen = $('.continue-content, .continue-screen');
 var newLevelScreen = $('.next-level-screen, .next-level-content');
+var youWonScreen = $('.you-won-screen, .you-won-content');
 //height/width of canvas
 canvas.width = 200;
 canvas.height = 400;
@@ -315,22 +316,31 @@ var nearGator = function(gatorArray) {
 //checks to see if froggo is over the finish line yet 
 var checkForGoal = function() {
 	if (y < 10 && level === 1) {
+		console.log(level);
 		clearInterval(levelOne);
 		clearInterval(timer);
 		goalMetSound[0].play();
 		newLevelScreen.addClass('active');
-		level++;
+		level=2;
 		$('#next-level-button').on('click', newLevelButton);
 	} else if (y < 10 && level === 2){
+		console.log(level);
 		clearInterval(levelTwo);
 		clearInterval(timer);
 		goalMetSound[0].play();
 		newLevelScreen.addClass('active');
-		level++;
+		level=3;
 		$('#next-level-button').on('click', newLevelButton);
 	} else if (y < 10 && level === 3) {
 		clearInterval(levelThree);
 		clearInterval(timer);
+		goalMetSound[0].play();
+		x=80;
+		y=370;
+		youWonScreen.addClass('active');
+		$('.displayScore').text(score);
+		level=1;
+		$('#reset-game-button').on('click', beginGame);
 		//display you won! and score/time
 	}
 }
@@ -467,11 +477,13 @@ var beginGame = function() {
 
 var spaceStart = function(e) {
 	if(e.keyCode === 32) {
-		if (lives === 3 && level === 1) {
+		if (lives === 3 && level === 1){
 			beginGame(); 
-		} else if (level >= 2) {
+		} else if (contScreen.hasClass('active')) {
 			continueGame();
-		} 
+		} else if (newLevelScreen.hasClass('active')) {
+			newLevelButton();
+		}
 	}
 }
 
