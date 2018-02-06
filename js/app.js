@@ -44,6 +44,11 @@ var levelTwoFrame = 20;
 var levelThreeFrame = 15;
 var withinBounds = true;
 
+var goalMetSound = $('#goal-met');
+var gatorMouthSound = $('#gatormouth');
+var hopSound = $('#hopsound');
+var plunkSound = $('#plunk');
+
 //froggo start coordinates
 var x = 85;
 var y = 370;
@@ -57,9 +62,13 @@ var timer = null;
 
 var timerStart = function() {
   count--;
-  if (count <= 0) {
+  if (count <= 0 && lives > 0) {
      clearInterval(timer);
-     gameOver();
+     loseHeart();
+  } 
+  if (count <= 0 && lives === 0) {
+  	clearInterval(timer);
+  	gameOver();
   }
 }
 
@@ -104,12 +113,12 @@ var levelOneMovingBad = [
 	{ type: 'log3', imgName: 'log', x: 65, y: 270, width: 25, height: 25, dx: 0.6 },
 	{ type: 'log4', imgName: 'log', x: 110, y: 270, width: 25, height: 25, dx: 0.6 },
 	{ type: 'starter', imgName: 'log', x: 150, y: 270, width: 25, height: 25, dx: 0.6 },
-	{ type: 'log6', imgName: 'log', x: -50, y: 245, width: 25, height: 25, dx: 0.5 },
-	{ type: 'log7', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: 0.5 },
-	{ type: 'log8', imgName: 'log', x: 40, y: 245, width: 25, height: 25, dx: 0.5 },
-	{ type: 'starter', imgName: 'log', x: 85, y: 245, width: 25, height: 25, dx: 0.5 },
-	{ type: 'log10', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: 0.5 },
-	{ type: 'starter', imgName: 'log', x: 130, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log6', imgName: 'log', x: -50, y: 245, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log7', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log8', imgName: 'log', x: 40, y: 245, width: 25, height: 25, dx: -0.5 },
+	{ type: 'starter', imgName: 'log', x: 85, y: 245, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log10', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: -0.5 },
+	{ type: 'starter', imgName: 'log', x: 130, y: 245, width: 25, height: 25, dx: -0.5 },
 	{ type: 'log12', imgName: 'log', x: 65, y: 170, width: 25, height: 25, dx: 0.5 },
 	{ type: 'log13', imgName: 'log', x: -5, y: 170, width: 25, height: 25, dx: 0.5 },
 	{ type: 'starter', imgName: 'log', x: 130, y: 170, width: 25, height: 25, dx: 0.5 },
@@ -261,22 +270,23 @@ var gatorDistanceCheck = function(x1, y1, x2, y2) {
 	}
 }
 
+
+//checks distance between froggo and loggo
 var logDistanceCheck = function(x1, y1, x2, y2) {
 	var xDistance = x2 - x1;
 	var yDistance = y2 - y1;
 	var logZone = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
 
-	if (logZone <= 5) {
+	if (logZone <= 15) {
 		return true;
 	} else {
 		return false;
 	}
 }
 
+//checks to see if froggo is on log, and if so it'll 
+//move the froggo coordinates along with it 
 var onLog = function(staticObjectsArray) {
-	//checks to see if the froggo is on the log or not 
-	//if so, froggo inherits the dx value from log
-	//so she moves along with it 
 	for (var i = 0; i < staticObjectsArray.length; i++) {
 		var currentLog = document.getElementById(staticObjectsArray[i].imgName);
 		if (logDistanceCheck(x, y, staticObjectsArray[i].x, staticObjectsArray[i].y) === true) {
@@ -293,6 +303,7 @@ var nearGator = function(gatorArray) {
 		var gatorChomp = document.getElementById('gatorChomp');
 		if (gatorDistanceCheck(x,y,gatorArray[i].x, gatorArray[i].y) === true) {
 			ctx.drawImage(gatorChomp, gatorArray[i].x, gatorArray[i].y, 25, 25);
+			gatorMouthSound[0].play();
 		} else {
 			ctx.drawImage(currentGator, gatorArray[i].x, gatorArray[i].y, 25, 25);
 		}
@@ -303,9 +314,13 @@ var nearGator = function(gatorArray) {
 var checkForGoal = function() {
 	if (y < 10 && level !== 3) {
 		//display next level for 3 sec
-		console.log('yay');
+		clearInterval(timer);
+		level++;
+		//var levelShow = setTimeout(function() {})
+		goalMetSound[0].play();
 	}
 	if (y < 10 && level === 3) {
+		clearInterval(timer);
 		//display you won! and score/time
 	}
 }
@@ -353,6 +368,8 @@ var lifeDisplay = function(livesArr, lives) {
 	}
 }
 
+//removes the continue modal, resets froggo location, resets timer count,
+//restarts gameLoop and timer
 var continueGame = function() {
 	if (contScreen.hasClass('active')){
 		contScreen.removeClass('active');
@@ -369,10 +386,11 @@ var continueGame = function() {
 	};	
 	clearInterval(timer);
 	timer = setInterval(timerStart, 1000); //1000 will  run it every 1 second
-	console.log('timer in continueGame started');
-	
 }
 
+//removes heart and lives-- and restarts the proper level and OR 
+//makes gameOver. 
+//pops up the continue game modal
 var loseHeart = function() {
 	if (lives >= 1) {
 		if (level===1) {
@@ -385,12 +403,18 @@ var loseHeart = function() {
 			clearInterval(levelThree);
 			lives--; 
 		};
+
+		clearInterval(timer);
+		contScreen.addClass('active');
+		plunkSound[0].pause();
+		plunkSound[0].currentTime = 0;
+		plunkSound[0].play();
+		$('#continue-button').on('click', continueGame);
+
 	} else if (lives === 0) { 
 		gameOver();
 	}
-	clearInterval(timer);
-	contScreen.addClass('active');
-	$('#continue-button').on('click', continueGame);
+
 }
 
 //this adds all the event listeners, focuses onto the canvas
@@ -411,7 +435,6 @@ var beginGame = function() {
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
 	};
 	timer = setInterval(timerStart, 1000);
-	console.log('timer in begin game started'); //1000 will  run it every 1 second
 };
 
 var spaceStart = function(e) {
@@ -441,18 +464,30 @@ var hop = function(e) {
 	// ^
 	if (e.keyCode === 38) {
 		y -= 25;
+		hopSound[0].pause();
+		hopSound[0].currentTime=0;
+		hopSound[0].play();
 	}
 	// v
 	if (e.keyCode === 40) {
 		y += 25;
+		hopSound[0].pause();
+		hopSound[0].currentTime=0;
+		hopSound[0].play();
 	}
 	// < 
 	if (e.keyCode === 37) {
 		x -= 25; 
+		hopSound[0].pause();
+		hopSound[0].currentTime=0;
+		hopSound[0].play();
 	}
 	// >
 	if (e.keyCode === 39) {
 		x += 25;
+		hopSound[0].pause();
+		hopSound[0].currentTime=0;
+		hopSound[0].play();
 	}
 };
 
@@ -482,7 +517,7 @@ var gameLoop = function() {
 		nearGator(levelThreeStaticBad);
 		onLog(levelThreeMovingBad);
 	}
-	
+
 	froggoDisplay();
 	checkBounds();
 	checkForGoal();
