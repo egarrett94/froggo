@@ -30,6 +30,7 @@ var ctx = canvas.getContext('2d');
 var contScreen = $('.continue-content, .continue-screen');
 var newLevelScreen = $('.next-level-screen, .next-level-content');
 var youWonScreen = $('.you-won-screen, .you-won-content');
+var gameOverScreen = $('.gameover-screen, .gameover-content');
 //height/width of canvas
 canvas.width = 200;
 canvas.height = 400;
@@ -46,6 +47,7 @@ var levelOneFrame = 23;
 var levelTwoFrame = 18;
 var levelThreeFrame = 15;
 var withinBounds = true;
+var bgAnimator = null;
 
 var goalMetSound = $('#goal-met');
 var gatorMouthSound = $('#gatormouth');
@@ -62,18 +64,6 @@ var lives = 3;
 var count = 45;
 var countdown = $('#timer');
 var timer = null;
-
-var timerStart = function() {
-  count--;
-  if (count <= 0 && lives > 0) {
-     clearInterval(timer);
-     loseHeart();
-  } 
-  if (count <= 0 && lives === 0) {
-  	clearInterval(timer);
-  	gameOver();
-  }
-}
 
 //event listeners to start game
 var startButton = $('#startButton');
@@ -168,11 +158,11 @@ var levelTwoStaticBad = [
 var levelTwoMovingBad = [
 	{ type: 'starter', imgName: 'longLog', x: 240, y: 320, width: 50, height: 25, dx: -0.5},
 	{ type: 'longLog2', imgName: 'longLog', x: 40, y: 320, width: 50, height: 25, dx: -0.5},
-	{ type: 'log1', imgName: 'log', x: -25, y: 270, width: 25, height: 25, dx: 0.6},
-	{ type: 'log2', imgName: 'log', x: 20, y: 270, width: 25, height: 25, dx: 0.6},
-	{ type: 'log3', imgName: 'log', x: 65, y: 270, width: 25, height: 25, dx: 0.6 },
-	{ type: 'starter', imgName: 'log', x: 110, y: 270, width: 25, height: 25, dx: 0.6 },
-	{ type: 'starter', imgName: 'log', x: 150, y: 270, width: 25, height: 25, dx: 0.6 },
+	{ type: 'log1', imgName: 'log', x: -25, y: 270, width: 25, height: 25, dx: -0.6},
+	{ type: 'log2', imgName: 'log', x: 20, y: 270, width: 25, height: 25, dx: -0.6},
+	{ type: 'log3', imgName: 'log', x: 65, y: 270, width: 25, height: 25, dx: -0.6 },
+	{ type: 'starter', imgName: 'log', x: 110, y: 270, width: 25, height: 25, dx: -0.6 },
+	{ type: 'starter', imgName: 'log', x: 150, y: 270, width: 25, height: 25, dx: -0.6 },
 	{ type: 'log6', imgName: 'log', x: -50, y: 245, width: 25, height: 25, dx: 0.5 },
 	{ type: 'log7', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: 0.5 },
 	{ type: 'starter', imgName: 'log', x: 85, y: 245, width: 25, height: 25, dx: 0.5 },
@@ -225,10 +215,10 @@ var levelThreeMovingBad = [
 	{ type: 'log3', imgName: 'log', x: 65, y: 270, width: 25, height: 25, dx: 0.6 },
 	{ type: 'starter', imgName: 'log', x: 110, y: 270, width: 25, height: 25, dx: 0.6 },
 	{ type: 'starter', imgName: 'log', x: 150, y: 270, width: 25, height: 25, dx: 0.6 },
-	{ type: 'log6', imgName: 'log', x: -50, y: 245, width: 25, height: 25, dx: 0.5 },
-	{ type: 'log7', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: 0.5 },
-	{ type: 'starter', imgName: 'log', x: 85, y: 245, width: 25, height: 25, dx: 0.5 },
-	{ type: 'starter', imgName: 'log', x: 130, y: 245, width: 25, height: 25, dx: 0.5 },
+	{ type: 'log6', imgName: 'log', x: -50, y: 245, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log7', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: -0.5 },
+	{ type: 'starter', imgName: 'log', x: 85, y: 245, width: 25, height: 25, dx: -0.5 },
+	{ type: 'starter', imgName: 'log', x: 130, y: 245, width: 25, height: 25, dx: -0.5 },
 	{ type: 'log12', imgName: 'log', x: 65, y: 170, width: 25, height: 25, dx: 0.5 },
 	{ type: 'starter', imgName: 'log', x: 130, y: 170, width: 25, height: 25, dx: 0.5 },
 	{ type: 'log15', imgName: 'log', x: 65, y: 50, width: 25, height: 25, dx: 0.5 },
@@ -246,6 +236,20 @@ var levelThreeMovingBad = [
 	{ type: 'longLog7', imgName: 'longLog', x: 90, y: 100, width: 50, height: 25, dx: 0.5}
 ];
 
+var timerStart = function() {
+  count--;
+  if (count <= 0 && lives > 0) {
+     clearInterval(timer);
+     clearInterval(bgAnimator);
+     loseHeart();
+  } 
+  if (count <= 0 && lives === 0) {
+  	clearInterval(timer);
+  	clearInterval(bgAnimator);
+  	gameOver();
+  }
+}
+
 //checks to see if froggo is within the game screen bounds
 var checkBounds = function() {
 	withinBounds = true;
@@ -259,32 +263,30 @@ var checkBounds = function() {
 	}
 }
 
-//will check if the froggo is within a certain amount of distance of a gator
-//and then gator opens mouth threateningly!!
-var gatorDistanceCheck = function(x1, y1, x2, y2) {
-	var xDistance = x2 - x1;
-	var yDistance = y2 - y1;
-	var gatorZone = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
-
-	if(gatorZone <= 35) {
-		return true;
-	} else {
-		return false;
+var gameOver = function() {
+	//display game over modal 
+	$('#gameover-button').on('click', newLevelButton);
+	if (level === 1) {
+		clearInterval(levelOne);
+	} else if (level === 2) {
+		clearInterval(levelTwo);
+	} else if (level === 3) {
+		clearInterval(levelThree);
 	}
+	clearInterval(timer);
+	clearInterval(bgAnimator);
+	gameOverScreen.addClass('active');
+	$('.displayScore').text(score);
+	lives = 3;
+	level = 1;
 }
 
-
-//checks distance between froggo and loggo
-var logDistanceCheck = function(x1, y1, x2, y2) {
+//distance calculator
+var distanceCheck = function(x1, y1, x2, y2) {
 	var xDistance = x2 - x1;
 	var yDistance = y2 - y1;
-	var logZone = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
-
-	if (logZone <= 15) {
-		return true;
-	} else {
-		return false;
-	}
+	var result = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+	return result;
 }
 
 //checks to see if froggo is on log, and if so it'll 
@@ -292,52 +294,66 @@ var logDistanceCheck = function(x1, y1, x2, y2) {
 var onLog = function(staticObjectsArray) {
 	for (var i = 0; i < staticObjectsArray.length; i++) {
 		var currentLog = document.getElementById(staticObjectsArray[i].imgName);
-		if (logDistanceCheck(x, y, staticObjectsArray[i].x, staticObjectsArray[i].y) === true) {
+		if (distanceCheck(x, y, staticObjectsArray[i].x, staticObjectsArray[i].y) <= 15) {
 			x += staticObjectsArray[i].dx;
 		}
 	}
 }
 
+//checks to see if froggo is near/on a gator 
+//if near, mouth opens.
+//if on, loseHeart() 
 var nearGator = function(gatorArray) {
 	//checks to see if froggo is near gator!
 	//if so, display open gator mouth 
 	for (var i = 0; i < gatorArray.length; i++) {
 		var currentGator = document.getElementById(gatorArray[i].imgName);
 		var gatorChomp = document.getElementById('gatorChomp');
-		if (gatorDistanceCheck(x,y,gatorArray[i].x, gatorArray[i].y) === true) {
+		if (distanceCheck(x,y,gatorArray[i].x, gatorArray[i].y) <= 35) {
 			ctx.drawImage(gatorChomp, gatorArray[i].x, gatorArray[i].y, 25, 25);
 			gatorMouthSound[0].play();
 		} else {
 			ctx.drawImage(currentGator, gatorArray[i].x, gatorArray[i].y, 25, 25);
 		}
+		if (distanceCheck(x,y,gatorArray[i].x, gatorArray[i].y) <= 5) {
+			loseHeart();
+		}
 	}
 }
 
 //checks to see if froggo is over the finish line yet 
+//and if so, it checks the level and pushes to the next 
+//and does everything to display whatever level 
 var checkForGoal = function() {
 	if (y < 10 && level === 1) {
 		console.log(level);
 		clearInterval(levelOne);
 		clearInterval(timer);
+		clearInterval(bgAnimator);
 		goalMetSound[0].play();
 		newLevelScreen.addClass('active');
 		level=2;
 		$('#next-level-button').on('click', newLevelButton);
+		score = score + (count * 10);  
 	} else if (y < 10 && level === 2){
 		console.log(level);
 		clearInterval(levelTwo);
 		clearInterval(timer);
+		clearInterval(bgAnimator);
 		goalMetSound[0].play();
 		newLevelScreen.addClass('active');
 		level=3;
 		$('#next-level-button').on('click', newLevelButton);
+		score = score + (count * 10); 
 	} else if (y < 10 && level === 3) {
 		clearInterval(levelThree);
 		clearInterval(timer);
+		clearInterval(bgAnimator);
 		goalMetSound[0].play();
 		x=80;
 		y=370;
 		youWonScreen.addClass('active');
+		score = score + (count * 10); 
 		$('.displayScore').text(score);
 		level=1;
 		$('#reset-game-button').on('click', beginGame);
@@ -346,7 +362,12 @@ var checkForGoal = function() {
 }
 
 var newLevelButton = function () {
-	newLevelScreen.removeClass('active');
+	if (newLevelScreen.hasClass('active')) {
+		newLevelScreen.removeClass('active');
+	} else if (gameOverScreen.hasClass('active')) {
+		gameOverScreen.removeClass('active');
+	}
+
 	x = 85;
 	y = 370;
 	count = 45; 
@@ -358,6 +379,7 @@ var newLevelButton = function () {
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
 	};	
 	clearInterval(timer);
+	clearInterval(bgAnimator);
 	timer = setInterval(timerStart, 1000); //1000 will  run it every 1 second
 }
 
@@ -376,6 +398,15 @@ var staticBad = function(staticBad) {
 		ctx.drawImage(badTile, staticBad[i].x, staticBad[i].y, staticBad[i].width, staticBad[i].height);
 	}
 };
+
+//checks to see if froggo is safe and not in water!
+var angryWaterCheck = function (staticObjectsArray, movingObjectsArray) {
+	for (var i = 0; i < staticObjectsArray.length; i++) {
+		if ((distanceCheck(x,y,staticObjectsArray[i].x, staticObjectsArray[i].y) >= 25) || (distanceCheck(x,y,movingObjectsArray[i].x, movingObjectsArray[i].y) >= 25))  {
+			loseHeart();
+		}
+	}
+}
 
 //this will update the x/y values of each object to the delta x/y each 
 //frame so it will animate them at various rates of movement
@@ -423,6 +454,7 @@ var continueGame = function() {
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
 	};	
 	clearInterval(timer);
+	clearInterval(bgAnimator);
 	timer = setInterval(timerStart, 1000); //1000 will  run it every 1 second
 }
 
@@ -443,16 +475,32 @@ var loseHeart = function() {
 		};
 
 		clearInterval(timer);
+		clearInterval(bgAnimator);
 		contScreen.addClass('active');
 		plunkSound[0].pause();
 		plunkSound[0].currentTime = 0;
 		plunkSound[0].play();
+
 		$('#continue-button').on('click', continueGame);
 
 	} else if (lives === 0) { 
 		gameOver();
 	}
+	if (score >= 150) {
+		score = score - 150;
+	} else { 
+		score = 0;
+	}
+}
 
+var bgAnimate = function () {
+	if (bgCounter === 1) {
+		$('canvas').css('background', "url('./img/froggoBg2.jpg'");
+		bgCounter = 2;
+	} else if (bgCounter === 2) {
+		$('canvas').css('background', "url('./img/froggoBg.jpg'");
+		bgCounter = 1;
+	}
 }
 
 //this adds all the event listeners, focuses onto the canvas
@@ -462,6 +510,7 @@ var beginGame = function() {
 	win = false;
 	window.addEventListener('keydown', hop);
 	canvas.focus();
+	bgAnimator = setInterval(bgAnimate, 500);
 	
 	//if statements to find out what level it is and then
 	//displays stuff accordingly 
@@ -475,6 +524,8 @@ var beginGame = function() {
 	timer = setInterval(timerStart, 1000);
 };
 
+//lets the user use the space key rather than clicking 
+//the various buttons for a better ux 
 var spaceStart = function(e) {
 	if(e.keyCode === 32) {
 		if (lives === 3 && level === 1){
@@ -483,23 +534,18 @@ var spaceStart = function(e) {
 			continueGame();
 		} else if (newLevelScreen.hasClass('active')) {
 			newLevelButton();
-		}
+		} 
 	}
 }
 
-var gameOver = function() {
-	//clear gameLoop intervals
-	//display a modal displaying image of 
-	//how frog died lmao rip 
-};
-
-//initiates froggo
+//initiates froggo on screen
 var froggoDisplay = function () {
 	var froggo = document.getElementById('froggo');
 	ctx.drawImage(froggo, x, y, 35, 35);
 }
 
 //specifics keydown values and how it affects froggo
+//they also play hop sounds and adds to the score
 var hop = function(e) {
 	// ^
 	if (e.keyCode === 38) {
@@ -507,7 +553,8 @@ var hop = function(e) {
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
-		score+=20;
+		score+=10;
+		// angryWaterCheck(levelOneStaticSafe, levelOneMovingBad);
 	}
 	// v
 	if (e.keyCode === 40) {
@@ -515,7 +562,7 @@ var hop = function(e) {
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
-		score+=20;
+		score+=10;
 	}
 	// < 
 	if (e.keyCode === 37) {
@@ -523,7 +570,7 @@ var hop = function(e) {
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
-		score+=20;
+		score+=10;
 	}
 	// >
 	if (e.keyCode === 39) {
@@ -531,13 +578,14 @@ var hop = function(e) {
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
-		score+=20;
+		score+=10;
 	}
 };
 
 //this is the animation loop initializer 
 //and all the things that ought to begin 
 //on game startup 
+var bgCounter = 1;
 var gameLoop = function() {
 	//clear between interval pops
 	ctx.clearRect(0, 0, 200, 400);
@@ -570,7 +618,7 @@ var gameLoop = function() {
 	ctx.font = '20px Courier';
 	ctx.fillStyle = '#f6fc88';
   	ctx.fillText(countdown.text(), 5, 395); 
-}
+};
 
 
 $(document).ready(function() {

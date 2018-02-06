@@ -73,7 +73,7 @@ footer {
 	filter: none;
 }
 
-.info-overlay, .continue-screen, .next-level-screen, .you-won-screen {
+.info-overlay, .continue-screen, .next-level-screen, .you-won-screen, .gameover-screen {
 	visibility: hidden;
 	position: absolute;
 	background-color: #f9b82a;
@@ -86,25 +86,25 @@ footer {
 	border-radius: 20px;
 }
 
-.info-overlay.active, .continue-screen.active, .next-level-screen.active, .you-won-screen.active {
+.info-overlay.active, .continue-screen.active, .next-level-screen.active, .you-won-screen.active, .gameover-screen.active {
 	/*displays info when "active" class is present*/
 	visibility: visible;
 	text-align: center;
 }
 
-.info-content, .continue-content, .next-level-content, .you-won-content {
+.info-content, .continue-content, .next-level-content, .you-won-content, .gameover-content {
 	/*Hides info content when there is no "active" class */
 	visibility: hidden;
 }
 
-.info-content.active, .continue-content.active, .next-level-content.active, .you-won-content.active {
+.info-content.active, .continue-content.active, .next-level-content.active, .you-won-content.active, .gameover-content.active {
 	/*Shows info content when "active" class is present */
 	visibility: visible;
 	margin: 10px;
 	text-align: center;
 }
 
-#info-close, #continue-button, #next-level-button, #reset-game-button {
+#info-close, #continue-button, #next-level-button, #reset-game-button, #gameover-button {
 	padding: 5px 15px;
 	background-color: white;
 	border: 4px outset grey;
@@ -123,8 +123,8 @@ footer {
 	margin-left: 10px;
 }
 
-#reset-game-button {
-	margin-left: -23px;
+#reset-game-button, #gameover-button {
+	margin-left: -25px;
 }
 
 .icon {
