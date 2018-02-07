@@ -9,19 +9,6 @@ $("#info-close, .info-overlay").on("click", function(){
   $(".info-overlay, .info-content").removeClass("active");
 });
 
-//////SPOT FOR IDEAS, DELETE FOR FINAL PRODUCT////
-//perhaps to make gator blink / water shimmer / whatever 
-//later on in the game, if the current frameRate is divisible
-//by 500 equally it'll swap the img block 
-
-
-
-
-
-
-
-
-
 //CANVAS MANIPULATION AND CREATION
 //make your canvas available in JS 
 var canvas = document.getElementById('canvas');
@@ -37,6 +24,9 @@ canvas.height = 400;
 
 var scoreBoard = $('#score');
 var score = 0;
+var p1score = 0;
+var p2score = 0;
+var highscore = 0;
 var collision = false;
 var gameLost = false;
 var gameWin = false;
@@ -53,6 +43,7 @@ var goalMetSound = $('#goal-met');
 var gatorMouthSound = $('#gatormouth');
 var hopSound = $('#hopsound');
 var plunkSound = $('#plunk');
+var bugGetSound = $('#bug-get');
 
 //froggo start coordinates
 var x = 85;
@@ -86,6 +77,12 @@ var levelOneLilypads = [
 	{ type: 'lilypad7', imgName: 'lilypad', x: 65, y: 145, width: 25, height: 25 },
 	{ type: 'lilypad8', imgName: 'lilypad', x: 110, y: 145, width: 25, height: 25 },
 	{ type: 'lilypad9', imgName: 'lilypad', x: 90, y: 30, width: 25, height: 25 }
+];
+
+//all ladybugs on levelOne
+var levelOneBugs = [
+	{ type: 'bug1', imgName: 'ladybug', x: 65, y: 295, width: 25, height: 25 },
+	{ type: 'bug2', imgName: 'ladybug', x: 110, y: 145, width: 25, height: 25 }
 ];
 
 //all bad boy tiles to populate for levelOne 
@@ -144,6 +141,12 @@ var levelTwoLilypads = [
 	{ type: 'lilypad7', imgName: 'lilypad', x: 90, y: 30, width: 25, height: 25 }
 ];
 
+//all levelTwo Buggos
+var levelTwoBugs = [
+	{ type: 'bug1', imgName: 'ladybug', x: 140, y: 345, width: 25, height: 25 },
+	{ type: 'bug2', imgName: 'ladybug', x: 110, y: 295, width: 25, height: 25 }
+];
+
 //all bad boy tiles to populate for levelTwo
 var levelTwoGators = [
 	{ type: 'gator1', imgName: 'gator1', x: 40, y: 220, width: 25, height: 25 },
@@ -195,6 +198,11 @@ var levelThreeLilypads = [
 	{ type: 'lilypad5', imgName: 'lilypad', x: 90, y: 30, width: 25, height: 25 }
 ];
 
+//all bugs for levelThree
+var levelThreeBugs = [
+	{ type: 'bug1', imgName: 'ladybug', x: 110, y: 145, width: 25, height: 25 },
+];
+
 //all bad boy tiles to populate for levelThree
 var levelThreeGators = [
 	{ type: 'gator1', imgName: 'gator1', x: 40, y: 220, width: 25, height: 25 },
@@ -215,18 +223,18 @@ var levelThreeLogs = [
 	{ type: 'log3', imgName: 'log', x: 65, y: 270, width: 25, height: 25, dx: 0.6 },
 	{ type: 'starter', imgName: 'log', x: 110, y: 270, width: 25, height: 25, dx: 0.6 },
 	{ type: 'starter', imgName: 'log', x: 150, y: 270, width: 25, height: 25, dx: 0.6 },
-	{ type: 'log6', imgName: 'log', x: -50, y: 245, width: 25, height: 25, dx: -0.5 },
-	{ type: 'log7', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: -0.5 },
-	{ type: 'starter', imgName: 'log', x: 85, y: 245, width: 25, height: 25, dx: -0.5 },
-	{ type: 'starter', imgName: 'log', x: 130, y: 245, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log6', imgName: 'log', x: -50, y: 245, width: 25, height: 25, dx: -0.7 },
+	{ type: 'log7', imgName: 'log', x: -5, y: 245, width: 25, height: 25, dx: -0.7 },
+	{ type: 'starter', imgName: 'log', x: 85, y: 245, width: 25, height: 25, dx: -0.7 },
+	{ type: 'starter', imgName: 'log', x: 130, y: 245, width: 25, height: 25, dx: -0.7 },
 	{ type: 'log12', imgName: 'log', x: 65, y: 170, width: 25, height: 25, dx: 0.5 },
 	{ type: 'starter', imgName: 'log', x: 130, y: 170, width: 25, height: 25, dx: 0.5 },
 	{ type: 'log15', imgName: 'log', x: 65, y: 50, width: 25, height: 25, dx: 0.5 },
 	{ type: 'log16', imgName: 'log', x: -5, y: 50, width: 25, height: 25, dx: 0.5 },
 	{ type: 'starter', imgName: 'log', x: 130, y: 50, width: 25, height: 25, dx: 0.5 },
-	{ type: 'starter', imgName: 'log', x: 65, y: 125, width: 25, height: 25, dx: -0.5 },
-	{ type: 'log19', imgName: 'log', x: 190, y: 125, width: 25, height: 25, dx: -0.5 },
-	{ type: 'log21', imgName: 'log', x: 245, y: 125, width: 25, height: 25, dx: -0.5 },
+	{ type: 'starter', imgName: 'log', x: 65, y: 125, width: 25, height: 25, dx: -0.6 },
+	{ type: 'log19', imgName: 'log', x: 190, y: 125, width: 25, height: 25, dx: -0.6 },
+	{ type: 'log21', imgName: 'log', x: 245, y: 125, width: 25, height: 25, dx: -0.6 },
 	{ type: 'log22', imgName: 'log', x: 65, y: 195, width: 25, height: 25, dx: -0.5 },
 	{ type: 'log24', imgName: 'log', x: 130, y: 195, width: 25, height: 25, dx: -0.5 },
 	{ type: 'starter', imgName: 'log', x: -5, y: 195, width: 25, height: 25, dx: -0.5 },
@@ -248,6 +256,22 @@ var timerStart = function() {
   	clearInterval(bgAnimator);
   	gameOver();
   }
+}
+
+//highscore checker
+var readHighScores = function () {
+	if (localStorage.hasOwnProperty('highscore')) {
+		highscore = localStorage.highscore;
+	}
+}
+
+var highScoreUpdate = function() {
+	if (score > highscore) {
+		//if the new score is higher than the highScore
+		//then we update the highScore value in localStorage
+		highscore = score; 
+		localStorage.highscore = highscore;
+	}
 }
 
 //checks to see if froggo is within the game screen bounds
@@ -288,6 +312,19 @@ var distanceCheck = function(x1, y1, x2, y2) {
 	return result;
 }
 
+//checks to see if froggo got a buggo!
+var bugGet = function(bugArray) {
+	for (var i = 0; i < bugArray.length; i++) {
+		var currentBuggo = document.getElementById(bugArray[i].imgName);
+		var lilypadPic = document.getElementById('lilypad');
+		if ( distanceCheck(x, y, bugArray[i].x, bugArray[i].y) <= 5 ) {
+			score += 100;
+			bugGetSound[0].play();
+			bugArray[i].x = 200;
+		}
+	}
+}
+
 //checks to see if froggo is on log, and if so it'll 
 //move the froggo coordinates along with it 
 var onLog = function(staticObjectsArray) {
@@ -301,6 +338,7 @@ var onLog = function(staticObjectsArray) {
 	return false; 
 }
 
+//checks to see if froggo is on a lilypad
 var onLilypad = function(staticArray) {
 	for (var i = 0; i < staticArray.length; i++) {
 		if (distanceCheck(x, y, staticArray[i].x, staticArray[i].y) <= 5) {
@@ -310,6 +348,8 @@ var onLilypad = function(staticArray) {
 	return false;
 }
 
+//if froggo is above the start zone or past the finish zone, she is safe
+//if froggo is between those zones and neither on a log or lilypad, froggo ded
 var angryWater = function(lilypad, log) {
 	if (onLilypad(lilypad) === false && onLog(log) === false && y < 365 && y > 30) {
 		loseHeart();
@@ -395,19 +435,11 @@ var newLevelButton = function () {
 	timer = setInterval(timerStart, 1000); //1000 will  run it every 1 second
 }
 
-//displays safe static spots to walk on the board
-var staticSafe = function(staticSafe) {
-	for (var i = 0; i < staticSafe.length; i++) {
-		var safeTile = document.getElementById(staticSafe[i].imgName);
-		ctx.drawImage(safeTile, staticSafe[i].x, staticSafe[i].y, staticSafe[i].width, staticSafe[i].height);
-	}
-};
-
-//displays bad boys on the board
-var staticBad = function(staticBad) {
-	for (var i = 0; i < staticBad.length; i++) {
-		var badTile = document.getElementById(staticBad[i].imgName);
-		ctx.drawImage(badTile, staticBad[i].x, staticBad[i].y, staticBad[i].width, staticBad[i].height);
+//displays static spots on board
+var staticObjects = function(objectArray) {
+	for (var i = 0; i < objectArray.length; i++) {
+		var tiler = document.getElementById(objectArray[i].imgName);
+		ctx.drawImage(tiler, objectArray[i].x, objectArray[i].y, objectArray[i].width, objectArray[i].height);
 	}
 };
 
@@ -549,9 +581,10 @@ var spaceStart = function(e) {
 		} 
 	}
 }
-var froggo = document.getElementById('froggo');
+
 //initiates froggo on screen
 var froggoDisplay = function () {
+	var froggo = document.getElementById('froggo');
 	ctx.drawImage(froggo, x, y, 35, 35);
 }
 
@@ -561,7 +594,6 @@ var hop = function(e) {
 	// ^
 	if (e.keyCode === 38) {
 		y -= 25;
-		$('froggo').css({'transform' : 'rotate(0deg)'});
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
@@ -570,7 +602,6 @@ var hop = function(e) {
 	// v
 	if (e.keyCode === 40) {
 		y += 25;
-		$('froggo').css({'transform' : 'rotate(180deg)'})
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
@@ -579,7 +610,6 @@ var hop = function(e) {
 	// < 
 	if (e.keyCode === 37) {
 		x -= 25; 
-		$('froggo').css({'transform' : 'rotate(270deg)'})
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
@@ -588,7 +618,6 @@ var hop = function(e) {
 	// >
 	if (e.keyCode === 39) {
 		x += 25;
-		$('froggo').css({'transform' : 'rotate(90deg)'})
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
@@ -605,25 +634,33 @@ var gameLoop = function() {
 	ctx.clearRect(0, 0, 200, 400);
 
 	if (level === 1) {
-		staticBad(levelOneGators);
-		staticSafe(levelOneLilypads);
+		staticObjects(levelOneGators);
+		staticObjects(levelOneLilypads);
+		staticObjects(levelOneBugs);
 		movingObjects(levelOneLogs);
 		nearGator(levelOneGators);
 		angryWater(levelOneLilypads, levelOneLogs); 
+		bugGet(levelOneBugs);
 	} else if (level === 2) {
-		staticBad(levelTwoGators);
-		staticSafe(levelTwoLilypads);
+		staticObjects(levelTwoGators);
+		staticObjects(levelTwoLilypads);
+		staticObjects(levelTwoBugs);
 		movingObjects(levelTwoLogs);
 		nearGator(levelTwoGators);
 		angryWater(levelTwoLilypads, levelTwoLogs); 
+		bugGet(levelTwoBugs);
 	} else if (level === 3) {
-		staticBad(levelThreeGators);
-		staticSafe(levelThreeLilypads);
+		staticObjects(levelThreeGators);
+		staticObjects(levelThreeLilypads);
+		staticObjects(levelThreeBugs);
 		movingObjects(levelThreeLogs);
 		nearGator(levelThreeGators);
 		angryWater(levelThreeLilypads, levelThreeLogs); 
+		bugGet(levelThreeBugs);
 	}
+
 	scoreBoard.text("Score: " + score);
+	highScoreUpdate();
 	froggoDisplay();
 	checkBounds();
 	checkForGoal();
@@ -638,4 +675,6 @@ var gameLoop = function() {
 $(document).ready(function() {
 	startButton.on('click', beginGame);
 	window.addEventListener('keydown', spaceStart);
+	readHighScores();
+	$('#hiScore').text('HiScore: ' + highscore);
 });
