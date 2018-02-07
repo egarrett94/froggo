@@ -296,8 +296,8 @@ var checkBounds = function() {
 
 var gameOver = function() {
 	if($(window).width <= 1024) {
-		hideForMobile.removeClass('hide');
-		dPad.removeClass('active');
+		hideForMobile.addClass('hide');
+		dPad.addClass('active');
 	}
 	if (level === 1) {
 		clearInterval(levelOne);
@@ -423,6 +423,8 @@ var checkForGoal = function() {
 		y=370;
 		youWonScreen.addClass('active');
 		score = score + (count * 10); 
+		hideForMobile.removeClass('hide');
+		dPad.removeClass('active');
 		$('#reset-game-button').on('click', beginGame);
 		$('.displayScore').text(score);
 		level=1;
@@ -442,10 +444,13 @@ var newLevelButton = function () {
 	y = 370;
 	count = 45; 
 	if (level===1) {
+		clearInterval(levelOne);
 		levelOne = window.setInterval(gameLoop, levelOneFrame);
 	} else if (level===2) {
+		clearInterval(levelTwo);
 		levelTwo = window.setInterval(gameLoop, levelTwoFrame);
 	} else if (level===3) {
+		clearInterval(levelThree);
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
 	};	
 	clearInterval(timer);
@@ -499,20 +504,17 @@ var continueGame = function() {
 	if (gameOverScreen.hasClass('active')) {
 		gameOverScreen.removeClass('active');
 	}
-
-	if (hideForMobile.hasClass('hide') === false && dPad.hasClass('active') === false) {
-		hideForMobile.addClass('hide');
-		dPad.addClass('active');
-	}
-
 	x = 85;
 	y = 370;
 	count = 45; 
 	if (level===1) {
+		clearInterval(levelOne);
 		levelOne = window.setInterval(gameLoop, levelOneFrame);
 	} else if (level===2) {
+		clearInterval(levelTwo);
 		levelTwo = window.setInterval(gameLoop, levelTwoFrame);
 	} else if (level===3) {
+		clearInterval(levelThree);
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
 	};	
 	clearInterval(timer);
@@ -570,7 +572,7 @@ var bgAnimate = function () {
 //displays the right board 
 var beginGame = function() {
 	count = 45;
-	if ($(window).width >= 1024) {
+	if ($(document).width() >= 1024) {
 		window.addEventListener('keydown', hop);
 	} else {
 		hopMobile();
@@ -665,7 +667,7 @@ var hopMobile = function() {
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
 		score+=10;
-	})
+	});
 	// v
 	$(downButton).on('click', function() {
 		y += 25;

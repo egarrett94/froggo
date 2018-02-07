@@ -58,10 +58,10 @@ footer {
 	visibility: hidden;
 }
 
-.dPad {
+.dPad  {
 	position: absolute;
 	visibility: hidden;
-	background-color: #f9b82a;
+	background-color: #9faab7;
 	border: 3px outset grey;
 	width: 160px;
 	height: 90px;
