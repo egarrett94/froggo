@@ -264,7 +264,6 @@ var checkBounds = function() {
 }
 
 var gameOver = function() {
-	//display game over modal 
 	$('#gameover-button').on('click', newLevelButton);
 	if (level === 1) {
 		clearInterval(levelOne);
@@ -283,8 +282,8 @@ var gameOver = function() {
 
 //distance calculator
 var distanceCheck = function(x1, y1, x2, y2) {
-	var xDistance = x2 - x1;
-	var yDistance = y2 - y1;
+	var xDistance = x2/2 - x1/2;
+	var yDistance = y2/2 - y1/2;
 	var result = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
 	return result;
 }
@@ -294,9 +293,28 @@ var distanceCheck = function(x1, y1, x2, y2) {
 var onLog = function(staticObjectsArray) {
 	for (var i = 0; i < staticObjectsArray.length; i++) {
 		var currentLog = document.getElementById(staticObjectsArray[i].imgName);
-		if (distanceCheck(x, y, staticObjectsArray[i].x, staticObjectsArray[i].y) <= 15) {
+		if (distanceCheck(x, y, staticObjectsArray[i].x, staticObjectsArray[i].y) <= 10) {
 			x += staticObjectsArray[i].dx;
+			console.log('on log');
+			return true;
 		}
+	}
+	return false; 
+}
+
+var onLilypad = function(staticArray) {
+	for (var i = 0; i < staticArray.length; i++) {
+		if (distanceCheck(x, y, staticArray[i].x, staticArray[i].y) <= 10) {
+			console.log('on a lilypad');
+			return true;
+		}
+	}
+	return false;
+}
+
+var angryWater = function(lilypad, log) {
+	if (onLilypad(lilypad) === false && onLog(log) === false && y < 365 && y > 30) {
+		loseHeart();
 	}
 }
 
@@ -309,13 +327,13 @@ var nearGator = function(gatorArray) {
 	for (var i = 0; i < gatorArray.length; i++) {
 		var currentGator = document.getElementById(gatorArray[i].imgName);
 		var gatorChomp = document.getElementById('gatorChomp');
-		if (distanceCheck(x,y,gatorArray[i].x, gatorArray[i].y) <= 35) {
+		if (distanceCheck(x,y,gatorArray[i].x, gatorArray[i].y) <= 17) {
 			ctx.drawImage(gatorChomp, gatorArray[i].x, gatorArray[i].y, 25, 25);
 			gatorMouthSound[0].play();
 		} else {
 			ctx.drawImage(currentGator, gatorArray[i].x, gatorArray[i].y, 25, 25);
 		}
-		if (distanceCheck(x,y,gatorArray[i].x, gatorArray[i].y) <= 5) {
+		if (distanceCheck(x,y,gatorArray[i].x, gatorArray[i].y) <= 2.5) {
 			loseHeart();
 		}
 	}
@@ -398,15 +416,6 @@ var staticBad = function(staticBad) {
 		ctx.drawImage(badTile, staticBad[i].x, staticBad[i].y, staticBad[i].width, staticBad[i].height);
 	}
 };
-
-//checks to see if froggo is safe and not in water!
-var angryWaterCheck = function (staticObjectsArray, movingObjectsArray) {
-	for (var i = 0; i < staticObjectsArray.length; i++) {
-		if ((distanceCheck(x,y,staticObjectsArray[i].x, staticObjectsArray[i].y) >= 25) || (distanceCheck(x,y,movingObjectsArray[i].x, movingObjectsArray[i].y) >= 25))  {
-			loseHeart();
-		}
-	}
-}
 
 //this will update the x/y values of each object to the delta x/y each 
 //frame so it will animate them at various rates of movement
@@ -554,7 +563,6 @@ var hop = function(e) {
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
 		score+=10;
-		// angryWaterCheck(levelOneStaticSafe, levelOneMovingBad);
 	}
 	// v
 	if (e.keyCode === 40) {
@@ -595,19 +603,17 @@ var gameLoop = function() {
 		staticSafe(levelOneStaticSafe);
 		movingObjects(levelOneMovingBad);
 		nearGator(levelOneStaticBad);
-		onLog(levelOneMovingBad);
+		angryWater(levelOneStaticSafe, levelOneMovingBad); 
 	} else if (level === 2) {
 		staticBad(levelTwoStaticBad);
 		staticSafe(levelTwoStaticSafe);
 		movingObjects(levelTwoMovingBad);
 		nearGator(levelTwoStaticBad);
-		onLog(levelTwoMovingBad);
 	} else if (level === 3) {
 		staticBad(levelThreeStaticBad);
 		staticSafe(levelThreeStaticSafe);
 		movingObjects(levelThreeMovingBad);
 		nearGator(levelThreeStaticBad);
-		onLog(levelThreeMovingBad);
 	}
 	scoreBoard.text("Score: " + score);
 	froggoDisplay();
