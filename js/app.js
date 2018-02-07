@@ -9,19 +9,6 @@ $("#info-close, .info-overlay").on("click", function(){
   $(".info-overlay, .info-content").removeClass("active");
 });
 
-//////SPOT FOR IDEAS, DELETE FOR FINAL PRODUCT////
-//perhaps to make gator blink / water shimmer / whatever 
-//later on in the game, if the current frameRate is divisible
-//by 500 equally it'll swap the img block 
-
-
-
-
-
-
-
-
-
 //CANVAS MANIPULATION AND CREATION
 //make your canvas available in JS 
 var canvas = document.getElementById('canvas');
@@ -37,6 +24,9 @@ canvas.height = 400;
 
 var scoreBoard = $('#score');
 var score = 0;
+var p1score = 0;
+var p2score = 0;
+var highscore = 0;
 var collision = false;
 var gameLost = false;
 var gameWin = false;
@@ -153,7 +143,7 @@ var levelTwoLilypads = [
 
 //all levelTwo Buggos
 var levelTwoBugs = [
-	{ type: 'bug1', imgName: 'ladybug', x: 140, y: 354, width: 25, height: 25 },
+	{ type: 'bug1', imgName: 'ladybug', x: 140, y: 345, width: 25, height: 25 },
 	{ type: 'bug2', imgName: 'ladybug', x: 110, y: 295, width: 25, height: 25 }
 ];
 
@@ -266,6 +256,22 @@ var timerStart = function() {
   	clearInterval(bgAnimator);
   	gameOver();
   }
+}
+
+//highscore checker
+var readHighScores = function () {
+	if (localStorage.hasOwnProperty('highscore')) {
+		highscore = localStorage.highscore;
+	}
+}
+
+var highScoreUpdate = function() {
+	if (score > highscore) {
+		//if the new score is higher than the highScore
+		//then we update the highScore value in localStorage
+		highscore = score; 
+		localStorage.highscore = highscore;
+	}
 }
 
 //checks to see if froggo is within the game screen bounds
@@ -654,6 +660,7 @@ var gameLoop = function() {
 	}
 
 	scoreBoard.text("Score: " + score);
+	highScoreUpdate();
 	froggoDisplay();
 	checkBounds();
 	checkForGoal();
@@ -668,4 +675,6 @@ var gameLoop = function() {
 $(document).ready(function() {
 	startButton.on('click', beginGame);
 	window.addEventListener('keydown', spaceStart);
+	readHighScores();
+	$('#hiScore').text('HiScore: ' + highscore);
 });
