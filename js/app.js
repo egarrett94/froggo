@@ -293,9 +293,8 @@ var distanceCheck = function(x1, y1, x2, y2) {
 var onLog = function(staticObjectsArray) {
 	for (var i = 0; i < staticObjectsArray.length; i++) {
 		var currentLog = document.getElementById(staticObjectsArray[i].imgName);
-		if (distanceCheck(x, y, staticObjectsArray[i].x, staticObjectsArray[i].y) <= 10) {
+		if (distanceCheck(x, y, staticObjectsArray[i].x, staticObjectsArray[i].y) <= 7) {
 			x += staticObjectsArray[i].dx;
-			console.log('on log');
 			return true;
 		}
 	}
@@ -304,8 +303,7 @@ var onLog = function(staticObjectsArray) {
 
 var onLilypad = function(staticArray) {
 	for (var i = 0; i < staticArray.length; i++) {
-		if (distanceCheck(x, y, staticArray[i].x, staticArray[i].y) <= 10) {
-			console.log('on a lilypad');
+		if (distanceCheck(x, y, staticArray[i].x, staticArray[i].y) <= 5) {
 			return true;
 		}
 	}
@@ -344,7 +342,6 @@ var nearGator = function(gatorArray) {
 //and does everything to display whatever level 
 var checkForGoal = function() {
 	if (y < 10 && level === 1) {
-		console.log(level);
 		clearInterval(levelOne);
 		clearInterval(timer);
 		clearInterval(bgAnimator);
@@ -353,8 +350,7 @@ var checkForGoal = function() {
 		level=2;
 		$('#next-level-button').on('click', newLevelButton);
 		score = score + (count * 10);  
-	} else if (y < 10 && level === 2){
-		console.log(level);
+	} else if (y < 10 && level === 2) {
 		clearInterval(levelTwo);
 		clearInterval(timer);
 		clearInterval(bgAnimator);
@@ -372,9 +368,9 @@ var checkForGoal = function() {
 		y=370;
 		youWonScreen.addClass('active');
 		score = score + (count * 10); 
+		$('#reset-game-button').on('click', beginGame);
 		$('.displayScore').text(score);
 		level=1;
-		$('#reset-game-button').on('click', beginGame);
 		//display you won! and score/time
 	}
 }
@@ -609,11 +605,13 @@ var gameLoop = function() {
 		staticSafe(levelTwoStaticSafe);
 		movingObjects(levelTwoMovingBad);
 		nearGator(levelTwoStaticBad);
+		angryWater(levelTwoStaticSafe, levelTwoMovingBad); 
 	} else if (level === 3) {
 		staticBad(levelThreeStaticBad);
 		staticSafe(levelThreeStaticSafe);
 		movingObjects(levelThreeMovingBad);
 		nearGator(levelThreeStaticBad);
+		angryWater(levelThreeStaticSafe, levelThreeMovingBad); 
 	}
 	scoreBoard.text("Score: " + score);
 	froggoDisplay();
