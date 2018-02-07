@@ -396,8 +396,6 @@ var checkForGoal = function() {
 		clearInterval(levelOne);
 		clearInterval(timer);
 		clearInterval(bgAnimator);
-		hideForMobile.addClass('hide');
-		dPad.addClass('active');
 		goalMetSound[0].play();
 		newLevelScreen.addClass('active');
 		level=2;
@@ -407,8 +405,6 @@ var checkForGoal = function() {
 		clearInterval(levelTwo);
 		clearInterval(timer);
 		clearInterval(bgAnimator);
-		hideForMobile.addClass('hide');
-		dPad.addClass('active');
 		goalMetSound[0].play();
 		newLevelScreen.addClass('active');
 		level=3;
@@ -433,10 +429,6 @@ var checkForGoal = function() {
 var newLevelButton = function () {
 	if (newLevelScreen.hasClass('active')) {
 		newLevelScreen.removeClass('active');
-	}
-	if (hideForMobile.hasClass('hide') === false && dPad.hasClass('active') === false) {
-		hideForMobile.addClass('hide');
-		dPad.addClass('active');
 	}
 	x = 85;
 	y = 370;
@@ -498,11 +490,6 @@ var continueGame = function() {
 	} 
 	if (gameOverScreen.hasClass('active')) {
 		gameOverScreen.removeClass('active');
-	}
-
-	if (hideForMobile.hasClass('hide') === false && dPad.hasClass('active') === false) {
-		hideForMobile.addClass('hide');
-		dPad.addClass('active');
 	}
 
 	x = 85;
@@ -570,13 +557,12 @@ var bgAnimate = function () {
 //displays the right board 
 var beginGame = function() {
 	count = 45;
-	if ($(window).width >= 1024) {
-		window.addEventListener('keydown', hop);
-	} else {
+	if ($(window).width <= 900) {
 		hopMobile();
 		hideForMobile.addClass('hide');
 		dPad.addClass('active');
 	}
+			window.addEventListener('keydown', hop);
 
 	canvas.focus();
 	clearInterval(bgAnimator);
@@ -659,7 +645,6 @@ var hop = function(e) {
 var hopMobile = function() {
 	// ^
 	$(upButton).on('click', function () {
-		console.log('pressed up');
 		y -= 25;
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;

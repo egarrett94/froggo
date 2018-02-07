@@ -58,7 +58,7 @@ footer {
 	visibility: hidden;
 }
 
-.dPad {
+.dPad, .dPadButtons {
 	position: absolute;
 	visibility: hidden;
 	background-color: #f9b82a;
@@ -71,7 +71,7 @@ footer {
 	border-radius: 20px;
 }
 
-.dPad.active {
+.dPad.active, .dPadButtons.active {
 	visibility: visible;
 }
 
