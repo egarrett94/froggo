@@ -296,8 +296,8 @@ var checkBounds = function() {
 
 var gameOver = function() {
 	if($(window).width <= 1024) {
-		hideForMobile.removeClass('hide');
-		dPad.removeClass('active');
+		hideForMobile.addClass('hide');
+		dPad.addClass('active');
 	}
 	if (level === 1) {
 		clearInterval(levelOne);
@@ -396,6 +396,8 @@ var checkForGoal = function() {
 		clearInterval(levelOne);
 		clearInterval(timer);
 		clearInterval(bgAnimator);
+		hideForMobile.addClass('hide');
+		dPad.addClass('active');
 		goalMetSound[0].play();
 		newLevelScreen.addClass('active');
 		level=2;
@@ -405,6 +407,8 @@ var checkForGoal = function() {
 		clearInterval(levelTwo);
 		clearInterval(timer);
 		clearInterval(bgAnimator);
+		hideForMobile.addClass('hide');
+		dPad.addClass('active');
 		goalMetSound[0].play();
 		newLevelScreen.addClass('active');
 		level=3;
@@ -419,6 +423,8 @@ var checkForGoal = function() {
 		y=370;
 		youWonScreen.addClass('active');
 		score = score + (count * 10); 
+		hideForMobile.removeClass('hide');
+		dPad.removeClass('active');
 		$('#reset-game-button').on('click', beginGame);
 		$('.displayScore').text(score);
 		level=1;
@@ -430,14 +436,21 @@ var newLevelButton = function () {
 	if (newLevelScreen.hasClass('active')) {
 		newLevelScreen.removeClass('active');
 	}
+	if (hideForMobile.hasClass('hide') === false && dPad.hasClass('active') === false) {
+		hideForMobile.addClass('hide');
+		dPad.addClass('active');
+	}
 	x = 85;
 	y = 370;
 	count = 45; 
 	if (level===1) {
+		clearInterval(levelOne);
 		levelOne = window.setInterval(gameLoop, levelOneFrame);
 	} else if (level===2) {
+		clearInterval(levelTwo);
 		levelTwo = window.setInterval(gameLoop, levelTwoFrame);
 	} else if (level===3) {
+		clearInterval(levelThree);
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
 	};	
 	clearInterval(timer);
@@ -491,15 +504,17 @@ var continueGame = function() {
 	if (gameOverScreen.hasClass('active')) {
 		gameOverScreen.removeClass('active');
 	}
-
 	x = 85;
 	y = 370;
 	count = 45; 
 	if (level===1) {
+		clearInterval(levelOne);
 		levelOne = window.setInterval(gameLoop, levelOneFrame);
 	} else if (level===2) {
+		clearInterval(levelTwo);
 		levelTwo = window.setInterval(gameLoop, levelTwoFrame);
 	} else if (level===3) {
+		clearInterval(levelThree);
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
 	};	
 	clearInterval(timer);
@@ -557,12 +572,13 @@ var bgAnimate = function () {
 //displays the right board 
 var beginGame = function() {
 	count = 45;
-	if ($(window).width <= 900) {
+	if ($(document).width() >= 1024) {
+		window.addEventListener('keydown', hop);
+	} else {
 		hopMobile();
 		hideForMobile.addClass('hide');
 		dPad.addClass('active');
 	}
-			window.addEventListener('keydown', hop);
 
 	canvas.focus();
 	clearInterval(bgAnimator);
@@ -645,12 +661,13 @@ var hop = function(e) {
 var hopMobile = function() {
 	// ^
 	$(upButton).on('click', function () {
+		console.log('pressed up');
 		y -= 25;
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
 		hopSound[0].play();
 		score+=10;
-	})
+	});
 	// v
 	$(downButton).on('click', function() {
 		y += 25;
