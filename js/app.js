@@ -18,6 +18,13 @@ var contScreen = $('.continue-content, .continue-screen');
 var newLevelScreen = $('.next-level-screen, .next-level-content');
 var youWonScreen = $('.you-won-screen, .you-won-content');
 var gameOverScreen = $('.gameover-screen, .gameover-content');
+var hideForMobile = $('.hideForMobile');
+var dPad = $('.dPad');
+var upButton = $('#up');
+var leftButton = $('#left');
+var rightButton = $('#right');
+var downButton = $('#down');
+
 //height/width of canvas
 canvas.width = 200;
 canvas.height = 400;
@@ -288,6 +295,10 @@ var checkBounds = function() {
 }
 
 var gameOver = function() {
+	if($(window).width <= 1024) {
+		hideForMobile.removeClass('hide');
+		dPad.removeClass('active');
+	}
 	if (level === 1) {
 		clearInterval(levelOne);
 	} else if (level === 2) {
@@ -385,6 +396,8 @@ var checkForGoal = function() {
 		clearInterval(levelOne);
 		clearInterval(timer);
 		clearInterval(bgAnimator);
+		hideForMobile.addClass('hide');
+		dPad.addClass('active');
 		goalMetSound[0].play();
 		newLevelScreen.addClass('active');
 		level=2;
@@ -394,6 +407,8 @@ var checkForGoal = function() {
 		clearInterval(levelTwo);
 		clearInterval(timer);
 		clearInterval(bgAnimator);
+		hideForMobile.addClass('hide');
+		dPad.addClass('active');
 		goalMetSound[0].play();
 		newLevelScreen.addClass('active');
 		level=3;
@@ -419,7 +434,10 @@ var newLevelButton = function () {
 	if (newLevelScreen.hasClass('active')) {
 		newLevelScreen.removeClass('active');
 	}
-
+	if (hideForMobile.hasClass('hide') === false && dPad.hasClass('active') === false) {
+		hideForMobile.addClass('hide');
+		dPad.addClass('active');
+	}
 	x = 85;
 	y = 370;
 	count = 45; 
@@ -481,6 +499,12 @@ var continueGame = function() {
 	if (gameOverScreen.hasClass('active')) {
 		gameOverScreen.removeClass('active');
 	}
+
+	if (hideForMobile.hasClass('hide') === false && dPad.hasClass('active') === false) {
+		hideForMobile.addClass('hide');
+		dPad.addClass('active');
+	}
+
 	x = 85;
 	y = 370;
 	count = 45; 
@@ -546,7 +570,14 @@ var bgAnimate = function () {
 //displays the right board 
 var beginGame = function() {
 	count = 45;
-	window.addEventListener('keydown', hop);
+	if ($(window).width >= 1024) {
+		window.addEventListener('keydown', hop);
+	} else {
+		hopMobile();
+		hideForMobile.addClass('hide');
+		dPad.addClass('active');
+	}
+
 	canvas.focus();
 	clearInterval(bgAnimator);
 	bgAnimator = setInterval(bgAnimate, 500);
@@ -623,6 +654,42 @@ var hop = function(e) {
 		hopSound[0].play();
 		score+=10;
 	}
+};
+
+var hopMobile = function() {
+	// ^
+	$(upButton).on('click', function () {
+		console.log('pressed up');
+		y -= 25;
+		hopSound[0].pause();
+		hopSound[0].currentTime=0;
+		hopSound[0].play();
+		score+=10;
+	})
+	// v
+	$(downButton).on('click', function() {
+		y += 25;
+		hopSound[0].pause();
+		hopSound[0].currentTime=0;
+		hopSound[0].play();
+		score+=10;
+	});
+	// < 
+	$(leftButton).on('click', function() {
+		x -= 25; 
+		hopSound[0].pause();
+		hopSound[0].currentTime=0;
+		hopSound[0].play();
+		score+=10;
+	});
+	// >
+	$(rightButton).on('click', function ()  {
+		x += 25;
+		hopSound[0].pause();
+		hopSound[0].currentTime=0;
+		hopSound[0].play();
+		score+=10;
+	});
 };
 
 //this is the animation loop initializer 

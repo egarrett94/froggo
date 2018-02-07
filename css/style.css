@@ -50,6 +50,49 @@ footer {
 	background-color: rgba(0,0,0,0.2);
 }
 
+.hideForMobile { 
+	visibility: visible;
+}
+
+.hideForMobile.hide {
+	visibility: hidden;
+}
+
+.dPad {
+	position: absolute;
+	visibility: hidden;
+	background-color: #f9b82a;
+	border: 3px outset grey;
+	width: 160px;
+	height: 90px;
+	bottom: 10px;
+	left: 115px;
+	margin: 0 auto;
+	border-radius: 20px;
+}
+
+.dPad.active {
+	visibility: visible;
+}
+
+#leftButton { 
+	position: absolute;
+	left: 9px;
+	top: 25px;
+}
+
+#upDown {
+	position: absolute;
+	left: 57px;
+	width: 30px;
+}
+
+#rightButton {
+	position: absolute;
+	right: 9px;
+	top: 25px;
+}
+
 .displayScore {
 	font-size: 44px;
 }
