@@ -65,3 +65,51 @@ Success! I also created a timer that starts upon game start / game continuation 
 
 Next step is to make the water "lava"--the danger zone. Big yikes. 
 
+## The water is ...Lava? 
+
+I figured this part would be easy, after spending an evening not coding and simply thinking it out. There are only two states of being in this game, essentially: safe, not safe. On a log/lilypad, not on a log/lilypad. So I confidently wrote the code out to put it into effect! ...And it failed. But why?! 
+
+Turns out, I was returning a boolean within the for loop of the angryWater() function and that knocked me out of the function, not finishing the logic properly. I fiddled around with this for a solid hour before I got some fresh eyes to look over my code (shout out to Matt) and help me come to the right conclusion. 
+
+After that, I just tweaked the distanceCheck() function to make it measure the distance between the middle of the images rather than the top left corner, which is the default. I also made very minor changes in the values of the minimum distance it required to confirm whether or not the frog is on a log or lilypad. 
+
+## LocalStorage, new high score!! 
+
+After wrestling with my code to make the water "lava", my next task was to initialize the localStorage to keep track of the highest score that the user gets and displays it. That was relatively simple--I am mostly unfamiliar with localStorage at this point, but after reading more about it I managed to get a decent grasp on what I needed to do. 
+
+![screen shot 2018-02-07 at 9 42 36 pm](https://user-images.githubusercontent.com/25888207/35957337-f0985090-0c4f-11e8-94c7-a84283838124.png)
+
+Here you can see I call to view what highscore's value within the localStorage is, and that it matches the value displayed upon page load.
+
+## Adding bugs! ...wait, what? 
+
+Yeah. I added bugs to my game. But like, the cute round ladybug kind. I scattered these throughout the board as opportunities for the player to get some extra points! 
+
+![ladybug](https://user-images.githubusercontent.com/25888207/35957392-3109b736-0c50-11e8-8736-6c117b0d7f1c.gif)
+
+I did this with very similar functions as staticObjects() and movingObjects(), but I ran into some problems: if I tried to remove the bug from the canvas by tiling transparency over it, it would overwrite the pixels and put an actual hole in my canvas. My fix for this was to simply move the bug image by 200px, off the canvas entirely, so it looks like it "disappeared". Now, I'm sure there are better fixes for this, but this worked seamlessly! That is, until you reach a gameOver() and the board repopulates without the bugs on there. They're still off to the side. 
+
+I fixed this with a function that would iterate through the bugArrays, and if their x-values were over 200, then i'd simply subtract 200 from the x-value, and the bug would return to where it was first populated.
+
+## Mobile Optimization
+
+My next endeavor was to make the board much more responsive, and to enable the user to be on mobile and still play the game. Initially, I was going to try to create some onSwipe events, but I wanted to maintain a more arcade-like feel and created some direction buttons for a D-Pad that would replace the start button and radio buttons underneath the canvas. The individual D-Pad buttons do the same sort of functionality as the arrow keys when in desktop orientation. 
+
+Here are the buttons themselves: 
+![dpad-down](https://user-images.githubusercontent.com/25888207/35957640-866195f4-0c51-11e8-967d-b9fe91feaa76.png)
+![dpad-left](https://user-images.githubusercontent.com/25888207/35957641-867825c6-0c51-11e8-9982-e41c6aa450d1.png)
+![dpad-right](https://user-images.githubusercontent.com/25888207/35957642-86a3c276-0c51-11e8-9f3b-169f6cfe3fe5.png)
+![dpad-up](https://user-images.githubusercontent.com/25888207/35957643-86c26c76-0c51-11e8-8ac1-6c76a4e25870.png)
+
+And this is how the D-Pad looks when the game is started in mobile view: 
+![screen shot 2018-02-07 at 9 56 22 pm](https://user-images.githubusercontent.com/25888207/35957700-c7343ad2-0c51-11e8-85d4-708d28ca5dd1.png)
+
+Once I got this functional and responsive, I moved on to tweaking minor details here and there to make it look great in mobile. 
+
+## Yay! Mobile looks great, thanks Chrome Dev Tools! 
+
+Just kidding. It looks great in Chrome Dev Tools at this point, but when I actually load this game up on my phone, it looks like this: 
+
+![image1](https://user-images.githubusercontent.com/25888207/35957746-0f4221cc-0c52-11e8-9974-27812e38736e.png)
+
+The footer goes right over the D-Pad! Convenient, fashionable, groundbreaking. Also, when playing the game, the gators don't do their iconic honking when you approach them, which is sad. Next steps will be to fix these things, and then I think I've got a pretty solid product! 

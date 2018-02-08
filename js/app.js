@@ -272,10 +272,9 @@ var readHighScores = function () {
 	}
 }
 
+//updates highscore in localstorage 
 var highScoreUpdate = function() {
 	if (score > highscore) {
-		//if the new score is higher than the highScore
-		//then we update the highScore value in localStorage
 		highscore = score; 
 		localStorage.highscore = highscore;
 	}
@@ -301,10 +300,13 @@ var gameOver = function() {
 	}
 	if (level === 1) {
 		clearInterval(levelOne);
+		bugReset(levelOneBugs);
 	} else if (level === 2) {
 		clearInterval(levelTwo);
+		bugReset(levelTwoBugs);
 	} else if (level === 3) {
 		clearInterval(levelThree);
+		bugReset(levelThreeBugs);
 	}
 	clearInterval(timer);
 	clearInterval(bgAnimator);
@@ -331,10 +333,21 @@ var bugGet = function(bugArray) {
 		if ( distanceCheck(x, y, bugArray[i].x, bugArray[i].y) <= 5 ) {
 			score += 100;
 			bugGetSound[0].play();
-			bugArray[i].x = 200;
+			bugArray[i].x += 200;
 		}
 	}
 }
+
+//resets the buggo x/y coordinates back to what they were before
+var bugReset = function(bugArray) {
+	for (var i = 0; i < bugArray.length; i++) {
+		var currentBuggo = document.getElementById(bugArray[i].imgName);
+		if (bugArray[i].x > 200) {
+			bugArray[i].x -= 200;
+		}	
+		ctx.drawImage(currentBuggo, bugArray[i].x, bugArray[i].y, 25, 25);
+	}
+};
 
 //checks to see if froggo is on log, and if so it'll 
 //move the froggo coordinates along with it 
@@ -437,11 +450,14 @@ var newLevelButton = function () {
 	if (level===1) {
 		clearInterval(levelOne);
 		levelOne = window.setInterval(gameLoop, levelOneFrame);
+		bugReset(levelOneBugs);
 	} else if (level===2) {
 		clearInterval(levelTwo);
 		levelTwo = window.setInterval(gameLoop, levelTwoFrame);
+		bugReset(levelTwoBugs);
 	} else if (level===3) {
 		clearInterval(levelThree);
+		bugReset(levelThreeBugs);
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
 	};	
 	clearInterval(timer);
@@ -736,6 +752,11 @@ var gameLoop = function() {
 $(document).ready(function() {
 	startButton.on('click', beginGame);
 	window.addEventListener('keydown', spaceStart);
+	setTimeout(function(){
+        // This hides the address bar:
+        window.scrollTo(0, 1);
+    }, 0);
+    $(window).resize(function () {$(content).css('height', $(window).height() - $(nav).height()); });
 	readHighScores();
 	$('#hiScore').text('HiScore: ' + highscore);
 });
