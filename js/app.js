@@ -387,7 +387,7 @@ var bugReset = function(bugArray) {
 var onLog = function(staticObjectsArray) {
 	for (var i = 0; i < staticObjectsArray.length; i++) {
 		var currentLog = document.getElementById(staticObjectsArray[i].imgName);
-		if (distanceCheck(x, y, staticObjectsArray[i].x, staticObjectsArray[i].y) <= 12) {
+		if (distanceCheck(x, y, staticObjectsArray[i].x, staticObjectsArray[i].y) <= 9) {
 			x += staticObjectsArray[i].dx;
 			return true;
 		}
