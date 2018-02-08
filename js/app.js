@@ -396,8 +396,6 @@ var checkForGoal = function() {
 		clearInterval(levelOne);
 		clearInterval(timer);
 		clearInterval(bgAnimator);
-		hideForMobile.addClass('hide');
-		dPad.addClass('active');
 		goalMetSound[0].play();
 		newLevelScreen.addClass('active');
 		level=2;
@@ -407,8 +405,6 @@ var checkForGoal = function() {
 		clearInterval(levelTwo);
 		clearInterval(timer);
 		clearInterval(bgAnimator);
-		hideForMobile.addClass('hide');
-		dPad.addClass('active');
 		goalMetSound[0].play();
 		newLevelScreen.addClass('active');
 		level=3;
@@ -435,10 +431,6 @@ var checkForGoal = function() {
 var newLevelButton = function () {
 	if (newLevelScreen.hasClass('active')) {
 		newLevelScreen.removeClass('active');
-	}
-	if (hideForMobile.hasClass('hide') === false && dPad.hasClass('active') === false) {
-		hideForMobile.addClass('hide');
-		dPad.addClass('active');
 	}
 	x = 85;
 	y = 370;
