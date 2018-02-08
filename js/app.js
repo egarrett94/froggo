@@ -24,6 +24,8 @@ var upButton = $('#up');
 var leftButton = $('#left');
 var rightButton = $('#right');
 var downButton = $('#down');
+var easyMode = $('#easy');
+var hardMode = $('#hard');
 
 //height/width of canvas
 canvas.width = 200;
@@ -31,8 +33,6 @@ canvas.height = 400;
 
 var scoreBoard = $('#score');
 var score = 0;
-var p1score = 0;
-var p2score = 0;
 var highscore = 0;
 var collision = false;
 var gameLost = false;
@@ -251,6 +251,36 @@ var levelThreeLogs = [
 	{ type: 'longLog7', imgName: 'longLog', x: 90, y: 100, width: 50, height: 25, dx: 0.5}
 ];
 
+//determines whether we will be playing in easy mode or hard mode
+//and if it is hard mode then it will increase the dx values of the 
+//log objects by a little bit 
+var whichMode = function(logArray) {
+	if(easyMode.is(':checked')) {
+		for (var i = 0; i < logArray.length; i++) {
+			if (logArray[i].dx > 0.7 && logArray[i].dx >= 0) {
+				logArray[i].dx -= 0.3;
+			}
+			if (logArray[i].dx <= 0 && logArray[i].dx < -0.7) {
+				logArray[i].dx += 0.3;
+			}
+			console.log(logArray[i].dx);
+		}
+	}
+	if(hardMode.is(':checked')) {
+		for (var i = 0; i < logArray.length; i++) {
+			if (logArray[i].dx <= 0.7 && logArray[i].dx >= 0) {
+				logArray[i].dx += 0.3;
+			}
+			if (logArray[i].dx <= 0 && logArray[i].dx >= -0.7) {
+				logArray[i].dx -= 0.3;
+			}
+			console.log(logArray[i].dx);
+		}
+	} 
+}
+
+
+//starts the timer, if it runs out, lose a life
 var timerStart = function() {
   count--;
   if (count <= 0 && lives > 0) {
@@ -600,6 +630,7 @@ var beginGame = function() {
 	//displays stuff accordingly 
 	if (!levelOne && level===1) {
 		levelOne = window.setInterval(gameLoop, levelOneFrame);
+		whichMode(levelOneLogs);
 	} else if (!levelTwo && level===2) {
 		levelTwo = window.setInterval(gameLoop, levelTwoFrame);
 	} else if (!levelThree && level===3) {
