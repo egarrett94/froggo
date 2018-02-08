@@ -430,8 +430,8 @@ var checkForGoal = function() {
 		goalMetSound[0].play();
 		x=80;
 		y=370;
-		youWonScreen.addClass('active');
 		score = score + (count * 10); 
+		youWonScreen.addClass('active');
 		hideForMobile.removeClass('hide');
 		dPad.removeClass('active');
 		$('#reset-game-button').on('click', beginGame);
@@ -756,7 +756,7 @@ $(document).ready(function() {
         // This hides the address bar:
         window.scrollTo(0, 1);
     }, 0);
-    $(window).resize(function () {$(content).css('height', $(window).height() - $(nav).height()); });
+    // $(window).resize(function () {$(content).css('height', $(window).height() + $(nav).height()); });
 	readHighScores();
 	$('#hiScore').text('HiScore: ' + highscore);
 });

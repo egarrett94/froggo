@@ -3,6 +3,7 @@ font-family: 'Press Start 2P', cursive;*/
 html {
 	margin: 0;
 	padding: 0;
+
 }
 
 body {
@@ -38,16 +39,31 @@ h1 {
 	margin-bottom: 10px;
 }
 
+.content {
+  min-height: calc(100vh - 40px);
+}
+
 footer {
 	position: absolute;
 	margin-top: 10px;
 	padding-top: 7px;
 	padding-left: 10px;
 	bottom: 0;
-	width: 99.2%;
+	width: 100%;
 	margin-left: -10px;
 	height: 30px;
 	background-color: rgba(0,0,0,0.2);
+	bottom:0px;
+	right:0%;
+	left:0%;
+	position:fixed!important;
+	top:expression((0-(footer.offsetHeight)+
+	(document.documentElement.clientHeight?
+	document.documentElement.clientHeight:
+	document.body.clientHeight)+(ignoreMe=document.documentElement.scrollTop?
+	document.documentElement.scrollTop:document.
+	body.scrollTop))+'px');
+	visibility:visible;
 }
 
 .hideForMobile { 
