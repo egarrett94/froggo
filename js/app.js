@@ -251,6 +251,12 @@ var levelThreeLogs = [
 	{ type: 'longLog7', imgName: 'longLog', x: 90, y: 100, width: 50, height: 25, dx: 0.5}
 ];
 
+//initiates froggo on screen
+var froggoDisplay = function () {
+	var froggo = document.getElementById('froggo');
+	ctx.drawImage(froggo, x, y, 35, 35);
+}
+
 //determines whether we will be playing in easy mode or hard mode
 //and if it is hard mode then it will increase the dx values of the 
 //log objects by a little bit 
@@ -649,12 +655,6 @@ var spaceStart = function(e) {
 			newLevelButton();
 		} 
 	}
-}
-
-//initiates froggo on screen
-var froggoDisplay = function () {
-	var froggo = document.getElementById('froggo');
-	ctx.drawImage(froggo, x, y, 35, 35);
 }
 
 //specifics keydown values and how it affects froggo
