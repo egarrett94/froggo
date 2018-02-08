@@ -290,3 +290,13 @@ label {
 	color: #d64161;
 	font-size: 18px;
 }
+
+/*MEDIA STYLING*/
+
+@media only screen and (max-width: 600) {
+	footer {
+		margin-right: 0;
+	}
+}
+
+
