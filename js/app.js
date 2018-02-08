@@ -62,8 +62,6 @@ var lives = 3;
 var count = 45;
 var countdown = $('#timer');
 var timer = null;
-
-//event listeners to start game
 var startButton = $('#startButton');
 
 //life icons
@@ -281,6 +279,7 @@ var whichMode = function(logArray) {
 			}
 		}
 	} 
+	$('input[type=radio]').attr('disabled', true);
 }
 
 //starts the timer, if it runs out, lose a life
@@ -324,30 +323,6 @@ var checkBounds = function() {
 		withinBounds = false;
 		loseHeart();
 	}
-}
-
-var gameOver = function() {
-	if($(window).width <= 1024) {
-		hideForMobile.addClass('hide');
-		dPad.addClass('active');
-	}
-	if (level === 1) {
-		clearInterval(levelOne);
-		bugReset(levelOneBugs);
-	} else if (level === 2) {
-		clearInterval(levelTwo);
-		bugReset(levelTwoBugs);
-	} else if (level === 3) {
-		clearInterval(levelThree);
-		bugReset(levelThreeBugs);
-	}
-	clearInterval(timer);
-	clearInterval(bgAnimator);
-	gameOverScreen.addClass('active');
-	$('#gameover-button').on('click', continueGame);
-	$('.displayScore').text(score);
-	lives = 3;
-	level = 1;
 }
 
 //distance calculator
@@ -465,14 +440,42 @@ var checkForGoal = function() {
 		y=370;
 		score = score + (count * 10); 
 		youWonScreen.addClass('active');
+		highScoreUpdate();
 		hideForMobile.removeClass('hide');
 		dPad.removeClass('active');
 		$('#reset-game-button').on('click', beginGame);
 		$('.displayScore').text(score);
 		level=1;
+		$('input[type=radio]').attr('disabled', false);
 		//display you won! and score/time
 	}
 }
+
+
+var gameOver = function() {
+	if($(window).width <= 1024) {
+		hideForMobile.addClass('hide');
+		dPad.addClass('active');
+	}
+	if (level === 1) {
+		clearInterval(levelOne);
+		bugReset(levelOneBugs);
+	} else if (level === 2) {
+		clearInterval(levelTwo);
+		bugReset(levelTwoBugs);
+	} else if (level === 3) {
+		clearInterval(levelThree);
+		bugReset(levelThreeBugs);
+	}
+	clearInterval(timer);
+	clearInterval(bgAnimator);
+	gameOverScreen.addClass('active');
+	$('#gameover-button').on('click', continueGame);
+	$('.displayScore').text(score);
+	lives = 3;
+	level = 1;
+}
+
 
 var newLevelButton = function () {
 	if (newLevelScreen.hasClass('active')) {
@@ -484,13 +487,16 @@ var newLevelButton = function () {
 		clearInterval(levelOne);
 		levelOne = window.setInterval(gameLoop, levelOneFrame);
 		bugReset(levelOneBugs);
+		whichMode(levelOneLogs);
 	} else if (level===2) {
 		clearInterval(levelTwo);
 		levelTwo = window.setInterval(gameLoop, levelTwoFrame);
 		bugReset(levelTwoBugs);
+		whichMode(levelTwoLogs);
 	} else if (level===3) {
 		clearInterval(levelThree);
 		bugReset(levelThreeBugs);
+		whichMode(levelThreeLogs);
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
 	};	
 	clearInterval(timer);
@@ -612,6 +618,7 @@ var bgAnimate = function () {
 //for a better ux, and determines which level we are on so it 
 //displays the right board 
 var beginGame = function() {
+	canvas.focus();
 	count = 45;
 	if ($(document).width() >= 1024) {
 		window.addEventListener('keydown', hop);
@@ -620,8 +627,6 @@ var beginGame = function() {
 		hideForMobile.addClass('hide');
 		dPad.addClass('active');
 	}
-
-	canvas.focus();
 	clearInterval(bgAnimator);
 	bgAnimator = setInterval(bgAnimate, 500);
 
@@ -636,8 +641,10 @@ var beginGame = function() {
 		whichMode(levelOneLogs);
 	} else if (!levelTwo && level===2) {
 		levelTwo = window.setInterval(gameLoop, levelTwoFrame);
+		whichMode(levelTwoLogs);
 	} else if (!levelThree && level===3) {
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
+		whichMode(levelThreeLogs);
 	};
 	clearInterval(timer);
 	timer = setInterval(timerStart, 1000);
@@ -647,6 +654,7 @@ var beginGame = function() {
 //the various buttons for a better ux 
 var spaceStart = function(e) {
 	if(e.keyCode === 32) {
+		canvas.focus();
 		if (lives === 3 && level === 1){
 			beginGame(); 
 		} else if (contScreen.hasClass('active')) {
