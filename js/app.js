@@ -242,9 +242,9 @@ var levelThreeLogs = [
 	{ type: 'starter', imgName: 'log', x: 65, y: 125, width: 25, height: 25, dx: -0.6 },
 	{ type: 'log19', imgName: 'log', x: 190, y: 125, width: 25, height: 25, dx: -0.6 },
 	{ type: 'log21', imgName: 'log', x: 245, y: 125, width: 25, height: 25, dx: -0.6 },
-	{ type: 'log22', imgName: 'log', x: 65, y: 195, width: 25, height: 25, dx: -0.5 },
-	{ type: 'log24', imgName: 'log', x: 130, y: 195, width: 25, height: 25, dx: -0.5 },
-	{ type: 'starter', imgName: 'log', x: -5, y: 195, width: 25, height: 25, dx: -0.5 },
+	{ type: 'log22', imgName: 'log', x: 65, y: 195, width: 25, height: 25, dx: -0.7 },
+	{ type: 'log24', imgName: 'log', x: 130, y: 195, width: 25, height: 25, dx: -0.7 },
+	{ type: 'starter', imgName: 'log', x: -5, y: 195, width: 25, height: 25, dx: -0.7 },
 	{ type: 'starter', imgName: 'longLog', x: 40, y: 75, width: 50, height: 25, dx: -0.5},
 	{ type: 'longLog5', imgName: 'longLog', x: 140, y: 75, width: 50, height: 25, dx: -0.5},
 	{ type: 'starter', imgName: 'longLog', x: 165, y: 100, width: 50, height: 25, dx: 0.5},
@@ -263,7 +263,6 @@ var whichMode = function(logArray) {
 			if (logArray[i].dx <= 0 && logArray[i].dx < -0.7) {
 				logArray[i].dx += 0.3;
 			}
-			console.log(logArray[i].dx);
 		}
 	}
 	if(hardMode.is(':checked')) {
@@ -274,11 +273,9 @@ var whichMode = function(logArray) {
 			if (logArray[i].dx <= 0 && logArray[i].dx >= -0.7) {
 				logArray[i].dx -= 0.3;
 			}
-			console.log(logArray[i].dx);
 		}
 	} 
 }
-
 
 //starts the timer, if it runs out, lose a life
 var timerStart = function() {
@@ -700,7 +697,6 @@ var hop = function(e) {
 var hopMobile = function() {
 	// ^
 	$(upButton).on('click', function () {
-		console.log('pressed up');
 		y -= 25;
 		hopSound[0].pause();
 		hopSound[0].currentTime=0;
@@ -779,10 +775,12 @@ var gameLoop = function() {
   	ctx.fillText(countdown.text(), 5, 395); 
 };
 
-
+//fastClick removes the 300ms delay on mobile
+var attachFastClick = Origami.fastclick;
 $(document).ready(function() {
 	startButton.on('click', beginGame);
 	window.addEventListener('keydown', spaceStart);
+	attachFastClick(document.body);
 	setTimeout(function(){
         // This hides the address bar:
         window.scrollTo(0, 1);
