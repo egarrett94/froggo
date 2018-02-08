@@ -434,7 +434,6 @@ var newLevelButton = function () {
 	}
 	x = 85;
 	y = 370;
-	count = 45; 
 	if (level===1) {
 		clearInterval(levelOne);
 		levelOne = window.setInterval(gameLoop, levelOneFrame);
@@ -446,6 +445,7 @@ var newLevelButton = function () {
 		levelThree = window.setInterval(gameLoop, levelThreeFrame);
 	};	
 	clearInterval(timer);
+	count = 45; 
 	clearInterval(bgAnimator);
 	timer = setInterval(timerStart, 1000); //1000 will  run it every 1 second
 }
