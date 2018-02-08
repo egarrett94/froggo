@@ -8,7 +8,7 @@ html {
 
 body {
 	font-family: 'VT323', monospace;
-	background-image: url(https://wallpapertag.com/wallpaper/middle/3/5/8/59410-gorgerous-pixel-art-wallpaper-1920x1080.jpg#.WnYX8ji2zig.link);
+	background-image: url('../img/backgroundImage.png');
 	background-size: cover;
 	background-attachment: fixed;
 }
@@ -83,7 +83,7 @@ footer {
 	width: 160px;
 	height: 90px;
 	bottom: 10px;
-	left: 70px;
+	left: 67px;
 	margin: 0 auto;
 	border-radius: 20px;
 }
