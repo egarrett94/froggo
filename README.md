@@ -113,3 +113,15 @@ Just kidding. It looks great in Chrome Dev Tools at this point, but when I actua
 ![image1](https://user-images.githubusercontent.com/25888207/35957746-0f4221cc-0c52-11e8-9974-27812e38736e.png)
 
 The footer goes right over the D-Pad! Convenient, fashionable, groundbreaking. Also, when playing the game, the gators don't do their iconic honking when you approach them, which is sad. Next steps will be to fix these things, and then I think I've got a pretty solid product! 
+
+## Footer Fix, Audio Compatibility Fixed (???)
+
+After trying a handful of fixes, I found a way to style the footer in a reasonably satisfactory fashion, allowing for a much better playing experience on mobile. I also noticed there's a 300ms delay on tapping the screen on mobile, so I looked for a plugin of some sort that I could use to remove that. I ended up using FastClick after seeing it referenced and recommended by a lot of users on various sources, and it seems to be working rather nicely. 
+
+![image1-1](https://user-images.githubusercontent.com/25888207/35993201-6d0526dc-0cc1-11e8-87df-42035f53c5e2.png)
+
+I also needed to figure out the audio incompatibility issues, and I read that mp3 files seem to work more universally than wav, so I converted them. But it doesn't seem to have changed anything! I'll have to look more into this subject in the future.
+
+Instead of a 2-player option, I opted to make the radio buttons at the bottom determine whether the user wants to play Easy or Hard mode. It works beautifully. 
+
+Now that I am pretty much done with optimizing the overall functionality of the game, I'm going to focus on creating a nice background for the web page itself so I have a grand package that I designed entirely myself! 
