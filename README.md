@@ -125,3 +125,13 @@ I also needed to figure out the audio incompatibility issues, and I read that mp
 Instead of a 2-player option, I opted to make the radio buttons at the bottom determine whether the user wants to play Easy or Hard mode. It works beautifully. 
 
 Now that I am pretty much done with optimizing the overall functionality of the game, I'm going to focus on creating a nice background for the web page itself so I have a grand package that I designed entirely myself! 
+
+## New background 
+
+Here's the new background I made. Every part of this project has officially been created and designed by yours truly ;) 
+
+![screen shot 2018-02-08 at 1 00 32 pm](https://user-images.githubusercontent.com/25888207/35998006-35c9b570-0cd0-11e8-85da-57aae0147ef1.png)
+
+# Conclusion 
+
+That was quite the project! I had a lot of fun learning how to make Canvas work, how to manipulate the page around it, and how to make actions interact with the game. Once I broke through the mental barrier I kept running into regarding how to animate, how to determine distance/collision, and other similar logical issues, I began to feel rather confident in my abilities. Learning new things while creating a cute, fun and functional game is definitely near the top of my list of proudest moments! 
