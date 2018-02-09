@@ -31,12 +31,10 @@ var hardMode = $('#hard');
 canvas.width = 200;
 canvas.height = 400;
 
+//various variables 
 var scoreBoard = $('#score');
 var score = 0;
 var highscore = 0;
-var collision = false;
-var gameLost = false;
-var gameWin = false;
 var levelOne = null;
 var levelTwo = null;
 var levelThree = null;
@@ -46,6 +44,7 @@ var levelThreeFrame = 15;
 var withinBounds = true;
 var bgAnimator = null;
 
+//sounds
 var goalMetSound = $('#goal-met');
 var gatorMouthSound = $('#gatormouth');
 var hopSound = $('#hopsound');
@@ -443,8 +442,9 @@ var checkForGoal = function() {
 		highScoreUpdate();
 		hideForMobile.removeClass('hide');
 		dPad.removeClass('active');
-		$('#reset-game-button').on('click', beginGame);
+		$('#reset-game-button').on('click', continueGame);
 		$('.displayScore').text(score);
+		lives = 3;
 		level=1;
 		$('input[type=radio]').attr('disabled', false);
 		//display you won! and score/time
@@ -552,6 +552,11 @@ var continueGame = function() {
 	if (gameOverScreen.hasClass('active')) {
 		gameOverScreen.removeClass('active');
 	}
+
+	if(youWonScreen.hasClass('active')) {
+		youWonScreen.removeClass('active');
+	}
+
 	x = 85;
 	y = 370;
 	count = 45; 
@@ -630,10 +635,6 @@ var beginGame = function() {
 	}
 	clearInterval(bgAnimator);
 	bgAnimator = setInterval(bgAnimate, 500);
-
-	if(youWonScreen.hasClass('active')) {
-		youWonScreen.removeClass('active');
-	}
 	
 	//if statements to find out what level it is and then
 	//displays stuff accordingly 
