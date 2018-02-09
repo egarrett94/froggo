@@ -459,14 +459,15 @@ var gameOver = function() {
 	}
 	if (level === 1) {
 		clearInterval(levelOne);
-		bugReset(levelOneBugs);
 	} else if (level === 2) {
 		clearInterval(levelTwo);
-		bugReset(levelTwoBugs);
 	} else if (level === 3) {
 		clearInterval(levelThree);
-		bugReset(levelThreeBugs);
 	}
+
+	bugReset(levelOneBugs);
+	bugReset(levelTwoBugs);
+	bugReset(levelThreeBugs);
 	clearInterval(timer);
 	clearInterval(bgAnimator);
 	gameOverScreen.addClass('active');
