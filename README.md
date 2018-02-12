@@ -1,6 +1,7 @@
 # froggo
 Frogger game for Project 1 at General Assembly, WDI-17
-[LINK FOR LIVE SITE](egarrett94.github.io/froggo)
+
+[LIVE SITE](egarrett94.github.io/froggo)
 
 ## Wireframes
 
