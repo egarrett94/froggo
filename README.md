@@ -137,3 +137,15 @@ Here's the new background I made. Every part of this project has officially been
 # Conclusion 
 
 That was quite the project! I had a lot of fun learning how to make Canvas work, how to manipulate the page around it, and how to make actions interact with the game. Once I broke through the mental barrier I kept running into regarding how to animate, how to determine distance/collision, and other similar logical issues, I began to feel rather confident in my abilities. Learning new things while creating a cute, fun and functional game is definitely near the top of my list of proudest moments! 
+
+## Technologies Used:
+* HTML
+* CSS
+* JQuery
+* JavaScript
+* FastClick
+
+## External sources:
+* Google Fonts
+* W3Schools
+* StackOverflow
