@@ -1,6 +1,8 @@
 # froggo
 Frogger game for Project 1 at General Assembly, WDI-17
 
+[LIVE SITE](https://egarrett94.github.io/froggo/)
+
 ## Wireframes
 
 ![new mockup 1](https://user-images.githubusercontent.com/25888207/35771707-fb21e5e8-08e5-11e8-9b9f-e6ee28194b1c.png)
@@ -135,3 +137,15 @@ Here's the new background I made. Every part of this project has officially been
 # Conclusion 
 
 That was quite the project! I had a lot of fun learning how to make Canvas work, how to manipulate the page around it, and how to make actions interact with the game. Once I broke through the mental barrier I kept running into regarding how to animate, how to determine distance/collision, and other similar logical issues, I began to feel rather confident in my abilities. Learning new things while creating a cute, fun and functional game is definitely near the top of my list of proudest moments! 
+
+## Technologies Used:
+* HTML
+* CSS
+* JQuery
+* JavaScript
+* FastClick
+
+## External sources:
+* Google Fonts
+* W3Schools
+* StackOverflow
